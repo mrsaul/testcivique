@@ -1,6 +1,6 @@
 // Questions basées sur le contenu officiel de formation-civique.interieur.gouv.fr
 export const SAMPLE_QUESTIONS = [
-  // THÈME 1: Principes et Valeurs
+  // THÈME 1: Principes et Valeurs (12 questions)
   {
     theme: 'principes_valeurs',
     question: 'Quelle est la devise de la République française ?',
@@ -38,7 +38,7 @@ export const SAMPLE_QUESTIONS = [
     question: 'Quel est l\'hymne national français ?',
     options: ['Le Chant du Départ', 'La Marseillaise', 'L\'Internationale', 'Le Chant des Partisans'],
     correct_answer: 1,
-    explanation: 'La Marseillaise est l\'hymne national français.',
+    explanation: 'La Marseillaise est l\'hymne national français, composée en 1792 par Rouget de Lisle.',
     difficulty: 'facile',
   },
   {
@@ -65,8 +65,40 @@ export const SAMPLE_QUESTIONS = [
     explanation: 'Les agents publics doivent respecter le principe de neutralité et ne peuvent pas porter de signes religieux visibles.',
     difficulty: 'moyen',
   },
+  {
+    theme: 'principes_valeurs',
+    question: 'Quel animal symbolise la France de manière traditionnelle ?',
+    options: ['L\'aigle', 'Le lion', 'Le coq', 'L\'ours'],
+    correct_answer: 2,
+    explanation: 'Le coq gaulois est un symbole traditionnel de la France, utilisé depuis l\'Antiquité.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'principes_valeurs',
+    question: 'Que signifie le principe d\'égalité ?',
+    options: ['Tous les citoyens ont les mêmes droits', 'Tous les citoyens ont le même salaire', 'Seuls les hommes ont des droits', 'Les riches ont plus de droits'],
+    correct_answer: 0,
+    explanation: 'L\'égalité signifie que tous les citoyens ont les mêmes droits devant la loi, sans distinction.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'principes_valeurs',
+    question: 'Où peut-on voir la devise "Liberté, Égalité, Fraternité" ?',
+    options: ['Uniquement sur les pièces de monnaie', 'Sur les frontons des mairies et bâtiments publics', 'Uniquement dans les églises', 'Sur les voitures de police'],
+    correct_answer: 1,
+    explanation: 'La devise est inscrite sur les frontons des mairies et autres bâtiments publics.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'principes_valeurs',
+    question: 'La France est une République :',
+    options: ['Monarchique', 'Indivisible, laïque, démocratique et sociale', 'Fédérale', 'Religieuse'],
+    correct_answer: 1,
+    explanation: 'L\'article 1er de la Constitution définit la France comme une République indivisible, laïque, démocratique et sociale.',
+    difficulty: 'moyen',
+  },
 
-  // THÈME 2: Système Institutionnel
+  // THÈME 2: Système Institutionnel (12 questions)
   {
     theme: 'systeme_institutionnel',
     question: 'Combien de députés siègent à l\'Assemblée nationale ?',
@@ -131,8 +163,40 @@ export const SAMPLE_QUESTIONS = [
     explanation: 'Le Parlement européen siège principalement à Strasbourg et également à Bruxelles.',
     difficulty: 'moyen',
   },
+  {
+    theme: 'systeme_institutionnel',
+    question: 'Qui est le chef de l\'État en France ?',
+    options: ['Le Premier ministre', 'Le Président de la République', 'Le Président de l\'Assemblée nationale', 'Le maire de Paris'],
+    correct_answer: 1,
+    explanation: 'Le Président de la République est le chef de l\'État français.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'systeme_institutionnel',
+    question: 'Qui dirige le gouvernement ?',
+    options: ['Le Président de la République', 'Le Premier ministre', 'Le Président du Sénat', 'Le ministre de l\'Intérieur'],
+    correct_answer: 1,
+    explanation: 'Le Premier ministre dirige l\'action du gouvernement.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'systeme_institutionnel',
+    question: 'Quelle est la plus haute juridiction de l\'ordre judiciaire ?',
+    options: ['Le Conseil d\'État', 'La Cour de cassation', 'Le Conseil constitutionnel', 'La Cour européenne'],
+    correct_answer: 1,
+    explanation: 'La Cour de cassation est la plus haute juridiction de l\'ordre judiciaire en France.',
+    difficulty: 'difficile',
+  },
+  {
+    theme: 'systeme_institutionnel',
+    question: 'Comment s\'appelle la Constitution actuelle de la France ?',
+    options: ['Constitution de la IVe République', 'Constitution de la Ve République', 'Constitution de 1789', 'Constitution européenne'],
+    correct_answer: 1,
+    explanation: 'La France est régie par la Constitution de la Ve République, adoptée en 1958.',
+    difficulty: 'moyen',
+  },
 
-  // THÈME 3: Droits et Devoirs
+  // THÈME 3: Droits et Devoirs (12 questions)
   {
     theme: 'droits_devoirs',
     question: 'À quel âge peut-on voter en France ?',
@@ -170,7 +234,7 @@ export const SAMPLE_QUESTIONS = [
     question: 'Qu\'est-ce que la JDC ?',
     options: ['Un impôt', 'La Journée Défense et Citoyenneté', 'Un examen scolaire', 'Une fête nationale'],
     correct_answer: 1,
-    explanation: 'La JDC (Journée Défense et Citoyenneté) est obligatoire pour tous les jeunes citoyens.',
+    explanation: 'La JDC (Journée Défense et Citoyenneté) est obligatoire pour tous les jeunes citoyens français.',
     difficulty: 'moyen',
   },
   {
@@ -181,8 +245,56 @@ export const SAMPLE_QUESTIONS = [
     explanation: 'Payer ses impôts est un devoir civique qui permet de financer les services publics.',
     difficulty: 'facile',
   },
+  {
+    theme: 'droits_devoirs',
+    question: 'Le droit de grève est-il reconnu en France ?',
+    options: ['Non, il est interdit', 'Oui, c\'est un droit constitutionnel', 'Seulement dans le secteur privé', 'Seulement pour les syndicats'],
+    correct_answer: 1,
+    explanation: 'Le droit de grève est reconnu par la Constitution et peut être exercé par tous les salariés.',
+    difficulty: 'moyen',
+  },
+  {
+    theme: 'droits_devoirs',
+    question: 'Qu\'est-ce que le droit d\'asile ?',
+    options: ['Le droit de vivre à l\'étranger', 'La protection accordée aux personnes persécutées dans leur pays', 'Le droit de se marier', 'Le droit de créer une entreprise'],
+    correct_answer: 1,
+    explanation: 'Le droit d\'asile permet à une personne persécutée de trouver refuge en France.',
+    difficulty: 'moyen',
+  },
+  {
+    theme: 'droits_devoirs',
+    question: 'Quel est l\'âge de la majorité civile en France ?',
+    options: ['16 ans', '18 ans', '21 ans', '25 ans'],
+    correct_answer: 1,
+    explanation: 'La majorité civile est fixée à 18 ans en France depuis 1974.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'droits_devoirs',
+    question: 'Le vote en France est-il obligatoire ?',
+    options: ['Oui, toujours', 'Non, c\'est un droit mais pas une obligation', 'Seulement pour les élections présidentielles', 'Seulement après 25 ans'],
+    correct_answer: 1,
+    explanation: 'Le vote n\'est pas obligatoire en France, c\'est un droit civique.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'droits_devoirs',
+    question: 'Qu\'est-ce que la présomption d\'innocence ?',
+    options: ['Tout accusé est coupable', 'Tout accusé est innocent jusqu\'à preuve du contraire', 'Seuls les riches sont innocents', 'La police décide de la culpabilité'],
+    correct_answer: 1,
+    explanation: 'La présomption d\'innocence signifie que toute personne est considérée innocente jusqu\'à ce que sa culpabilité soit établie.',
+    difficulty: 'moyen',
+  },
+  {
+    theme: 'droits_devoirs',
+    question: 'Les citoyens européens peuvent-ils voter aux élections municipales en France ?',
+    options: ['Non, jamais', 'Oui, s\'ils résident en France', 'Seulement après 10 ans de résidence', 'Seulement s\'ils sont naturalisés'],
+    correct_answer: 1,
+    explanation: 'Les citoyens de l\'Union européenne résidant en France peuvent voter aux élections municipales et européennes.',
+    difficulty: 'difficile',
+  },
 
-  // THÈME 4: Histoire et Géographie
+  // THÈME 4: Histoire et Géographie (12 questions)
   {
     theme: 'histoire_geographie',
     question: 'En quelle année a eu lieu la Révolution française ?',
@@ -204,7 +316,7 @@ export const SAMPLE_QUESTIONS = [
     question: 'Quand la peine de mort a-t-elle été abolie en France ?',
     options: ['1974', '1981', '1988', '1995'],
     correct_answer: 1,
-    explanation: 'La peine de mort a été abolie en 1981 sous la présidence de François Mitterrand.',
+    explanation: 'La peine de mort a été abolie en 1981 sous la présidence de François Mitterrand, par Robert Badinter.',
     difficulty: 'moyen',
   },
   {
@@ -220,7 +332,7 @@ export const SAMPLE_QUESTIONS = [
     question: 'Quelle est la place de la France mondiale pour son espace maritime (ZEE) ?',
     options: ['1ère', '2ème', '5ème', '10ème'],
     correct_answer: 1,
-    explanation: 'La France possède la 2ème plus grande zone économique exclusive au monde (plus de 10 millions de km²).',
+    explanation: 'La France possède la 2ème plus grande zone économique exclusive au monde grâce à ses territoires d\'outre-mer.',
     difficulty: 'difficile',
   },
   {
@@ -247,8 +359,40 @@ export const SAMPLE_QUESTIONS = [
     explanation: 'Le français est parlé par environ 300 millions de personnes, c\'est la 5ème langue la plus parlée au monde.',
     difficulty: 'moyen',
   },
+  {
+    theme: 'histoire_geographie',
+    question: 'Quelle est la capitale de la France ?',
+    options: ['Lyon', 'Marseille', 'Paris', 'Bordeaux'],
+    correct_answer: 2,
+    explanation: 'Paris est la capitale de la France depuis des siècles.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'histoire_geographie',
+    question: 'Quel événement commémore le 11 novembre ?',
+    options: ['La Révolution française', 'L\'armistice de 1918', 'La libération de Paris', 'La fin de la Seconde Guerre mondiale'],
+    correct_answer: 1,
+    explanation: 'Le 11 novembre commémore l\'armistice de 1918, la fin de la Première Guerre mondiale.',
+    difficulty: 'moyen',
+  },
+  {
+    theme: 'histoire_geographie',
+    question: 'Que commémore le 8 mai ?',
+    options: ['La prise de la Bastille', 'La victoire de 1945', 'La fête du travail', 'L\'armistice de 1918'],
+    correct_answer: 1,
+    explanation: 'Le 8 mai commémore la victoire des Alliés sur l\'Allemagne nazie en 1945.',
+    difficulty: 'moyen',
+  },
+  {
+    theme: 'histoire_geographie',
+    question: 'Quel est le plus long fleuve de France ?',
+    options: ['La Seine', 'Le Rhône', 'La Loire', 'La Garonne'],
+    correct_answer: 2,
+    explanation: 'La Loire est le plus long fleuve de France avec 1 006 kilomètres.',
+    difficulty: 'moyen',
+  },
 
-  // THÈME 5: Vivre en Société
+  // THÈME 5: Vivre en Société (12 questions)
   {
     theme: 'vivre_societe',
     question: 'L\'école est obligatoire de quel âge à quel âge ?',
@@ -311,6 +455,38 @@ export const SAMPLE_QUESTIONS = [
     options: ['Seulement un passeport', 'Justifier de ressources et d\'un logement', 'Parler couramment français', 'Avoir un diplôme français'],
     correct_answer: 1,
     explanation: 'L\'obtention d\'un titre de séjour nécessite généralement de justifier de ressources suffisantes et d\'un logement.',
+    difficulty: 'moyen',
+  },
+  {
+    theme: 'vivre_societe',
+    question: 'Qu\'est-ce que le SMIC ?',
+    options: ['Un syndicat', 'Le salaire minimum légal', 'Un type de contrat', 'Une allocation chômage'],
+    correct_answer: 1,
+    explanation: 'Le SMIC (Salaire Minimum Interprofessionnel de Croissance) est le salaire horaire minimum légal en France.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'vivre_societe',
+    question: 'Quelle est la durée légale du travail par semaine en France ?',
+    options: ['32 heures', '35 heures', '39 heures', '40 heures'],
+    correct_answer: 1,
+    explanation: 'La durée légale du travail est de 35 heures par semaine en France depuis 2000.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'vivre_societe',
+    question: 'Qu\'est-ce que Pôle emploi ?',
+    options: ['Une école', 'Le service public de l\'emploi', 'Une entreprise privée', 'Un syndicat'],
+    correct_answer: 1,
+    explanation: 'Pôle emploi (maintenant France Travail) est le service public qui aide les demandeurs d\'emploi.',
+    difficulty: 'facile',
+  },
+  {
+    theme: 'vivre_societe',
+    question: 'L\'égalité homme-femme est :',
+    options: ['Un simple souhait', 'Un principe constitutionnel', 'Valable uniquement au travail', 'Réservée aux citoyens français'],
+    correct_answer: 1,
+    explanation: 'L\'égalité entre les hommes et les femmes est un principe constitutionnel en France.',
     difficulty: 'moyen',
   },
 ];
