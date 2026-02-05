@@ -2,6 +2,7 @@ import { Layout } from '@/components/layout/Layout';
 import { StatsCards } from '@/components/dashboard/StatsCards';
 import { TrainingModes } from '@/components/dashboard/TrainingModes';
 import { ThemeCard } from '@/components/dashboard/ThemeCard';
+import { BadgesDisplay } from '@/components/badges/BadgesDisplay';
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth } from '@/hooks/useAuth';
 import { THEMES, ThemeId } from '@/lib/constants';
@@ -47,6 +48,9 @@ export default function DashboardPage() {
           correctAnswers={profile?.correct_answers || 0}
           accuracy={accuracy}
         />
+
+        {/* Badges Section */}
+        <BadgesDisplay showAll />
 
         {/* Training Modes */}
         <TrainingModes />

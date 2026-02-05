@@ -194,6 +194,27 @@ export type Database = {
           },
         ]
       }
+      user_badges: {
+        Row: {
+          badge_type: Database["public"]["Enums"]["badge_type"]
+          earned_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_type: Database["public"]["Enums"]["badge_type"]
+          earned_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_type?: Database["public"]["Enums"]["badge_type"]
+          earned_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -202,6 +223,22 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      badge_type:
+        | "first_quiz"
+        | "streak_3"
+        | "streak_7"
+        | "streak_30"
+        | "perfect_quiz"
+        | "theme_master_principes"
+        | "theme_master_institutions"
+        | "theme_master_droits"
+        | "theme_master_histoire"
+        | "theme_master_vivre"
+        | "questions_50"
+        | "questions_100"
+        | "questions_500"
+        | "exam_passed"
+        | "all_themes_started"
       difficulty_level: "facile" | "moyen" | "difficile"
       quiz_theme:
         | "principes_valeurs"
@@ -336,6 +373,23 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      badge_type: [
+        "first_quiz",
+        "streak_3",
+        "streak_7",
+        "streak_30",
+        "perfect_quiz",
+        "theme_master_principes",
+        "theme_master_institutions",
+        "theme_master_droits",
+        "theme_master_histoire",
+        "theme_master_vivre",
+        "questions_50",
+        "questions_100",
+        "questions_500",
+        "exam_passed",
+        "all_themes_started",
+      ],
       difficulty_level: ["facile", "moyen", "difficile"],
       quiz_theme: [
         "principes_valeurs",
