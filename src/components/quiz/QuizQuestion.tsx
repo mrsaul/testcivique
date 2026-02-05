@@ -1,14 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { Question } from '@/hooks/useQuiz';
-import { Check, X } from 'lucide-react';
+import { QuizQuestion as QuizQuestionType, AnswerValidation } from '@/hooks/useQuiz';
+import { Check, X, Loader2 } from 'lucide-react';
 
 interface QuizQuestionProps {
-  question: Question;
+  question: QuizQuestionType;
   selectedAnswer: number | null;
   onSelectAnswer: (index: number) => void;
   showResult: boolean;
+  isValidating?: boolean;
+  validation?: AnswerValidation | null;
   onSubmit: () => void;
   onNext: () => void;
 }
@@ -18,10 +20,14 @@ export function QuizQuestion({
   selectedAnswer,
   onSelectAnswer,
   showResult,
+  isValidating = false,
+  validation,
   onSubmit,
   onNext,
 }: QuizQuestionProps) {
-  const isCorrect = selectedAnswer === question.correct_answer;
+  const isCorrect = validation?.isCorrect ?? false;
+  const correctAnswer = validation?.correctAnswer;
+  const explanation = validation?.explanation ?? question.explanation;
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -34,13 +40,13 @@ export function QuizQuestion({
       <div className="space-y-3">
         {question.options.map((option, index) => {
           const isSelected = selectedAnswer === index;
-          const isCorrectOption = index === question.correct_answer;
+          const isCorrectOption = showResult && index === correctAnswer;
 
           return (
             <button
               key={index}
-              onClick={() => !showResult && onSelectAnswer(index)}
-              disabled={showResult}
+              onClick={() => !showResult && !isValidating && onSelectAnswer(index)}
+              disabled={showResult || isValidating}
               className={cn(
                 'w-full p-4 rounded-xl border-2 text-left transition-all duration-200',
                 'hover:border-primary/50 hover:shadow-md',
@@ -77,7 +83,7 @@ export function QuizQuestion({
         })}
       </div>
 
-      {showResult && question.explanation && (
+      {showResult && explanation && (
         <Card className={cn(
           'border-2 animate-slide-up',
           isCorrect ? 'border-success bg-success-light' : 'border-destructive bg-destructive-light'
@@ -86,7 +92,7 @@ export function QuizQuestion({
             <p className="font-semibold mb-1">
               {isCorrect ? '✓ Bonne réponse !' : '✗ Mauvaise réponse'}
             </p>
-            <p className="text-sm text-muted-foreground">{question.explanation}</p>
+            <p className="text-sm text-muted-foreground">{explanation}</p>
           </CardContent>
         </Card>
       )}
@@ -95,11 +101,18 @@ export function QuizQuestion({
         {!showResult ? (
           <Button
             onClick={onSubmit}
-            disabled={selectedAnswer === null}
+            disabled={selectedAnswer === null || isValidating}
             size="lg"
             className="px-8"
           >
-            Valider
+            {isValidating ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Validation...
+              </>
+            ) : (
+              'Valider'
+            )}
           </Button>
         ) : (
           <Button onClick={onNext} size="lg" className="px-8">

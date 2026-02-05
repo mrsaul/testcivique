@@ -4,14 +4,26 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { ThemeId } from '@/lib/constants';
 
-export interface Question {
+// Question without correct_answer (from quiz_questions view)
+export interface QuizQuestion {
   id: string;
   theme: ThemeId;
   question: string;
   options: string[];
-  correct_answer: number;
   explanation: string | null;
   difficulty: 'facile' | 'moyen' | 'difficile';
+}
+
+// Full question with answer (for local sample questions only)
+export interface Question extends QuizQuestion {
+  correct_answer: number;
+}
+
+// Answer validation result from edge function
+export interface AnswerValidation {
+  isCorrect: boolean;
+  correctAnswer: number;
+  explanation: string | null;
 }
 
 export interface QuizSession {
@@ -26,11 +38,25 @@ export interface QuizSession {
   completed_at: string | null;
 }
 
+// Validate answer via edge function
+export async function validateAnswer(questionId: string, selectedAnswer: number): Promise<AnswerValidation> {
+  const { data, error } = await supabase.functions.invoke('validate-answer', {
+    body: { questionId, selectedAnswer },
+  });
+
+  if (error) {
+    throw new Error('Failed to validate answer');
+  }
+
+  return data as AnswerValidation;
+}
+
 export function useQuestions(theme?: ThemeId, limit?: number) {
   return useQuery({
     queryKey: ['questions', theme, limit],
     queryFn: async () => {
-      let query = supabase.from('questions').select('*');
+      // Use the secure view that doesn't include correct_answer
+      let query = supabase.from('quiz_questions').select('*');
       
       if (theme) {
         query = query.eq('theme', theme);
@@ -44,7 +70,7 @@ export function useQuestions(theme?: ThemeId, limit?: number) {
       if (error) throw error;
       
       // Shuffle questions
-      const shuffled = [...(data as Question[])].sort(() => Math.random() - 0.5);
+      const shuffled = [...(data as QuizQuestion[])].sort(() => Math.random() - 0.5);
       return limit ? shuffled.slice(0, limit) : shuffled;
     },
   });
@@ -148,34 +174,69 @@ export function useRecordAnswer() {
   });
 }
 
-export function useQuizState(questions: Question[]) {
+export function useQuizState(questions: QuizQuestion[]) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]);
-  const [wrongQuestions, setWrongQuestions] = useState<Question[]>([]);
+  const [wrongQuestions, setWrongQuestions] = useState<QuizQuestion[]>([]);
+  const [lastValidation, setLastValidation] = useState<AnswerValidation | null>(null);
 
   const currentQuestion = questions[currentIndex];
   const isComplete = currentIndex >= questions.length;
   const progress = (currentIndex / questions.length) * 100;
 
-  const submitAnswer = useCallback(() => {
+  const submitAnswer = useCallback(async () => {
     if (selectedAnswer === null || !currentQuestion) return;
     
-    const isCorrect = selectedAnswer === currentQuestion.correct_answer;
-    if (isCorrect) {
-      setCorrectCount((prev) => prev + 1);
-    } else {
-      setWrongQuestions((prev) => [...prev, currentQuestion]);
+    setIsValidating(true);
+    
+    try {
+      // For sample questions (id starts with 'sample-'), validate locally
+      if (currentQuestion.id.startsWith('sample-')) {
+        // Sample questions have correct_answer embedded
+        const questionWithAnswer = currentQuestion as Question;
+        const isCorrect = selectedAnswer === questionWithAnswer.correct_answer;
+        
+        setLastValidation({
+          isCorrect,
+          correctAnswer: questionWithAnswer.correct_answer,
+          explanation: questionWithAnswer.explanation,
+        });
+        
+        if (isCorrect) {
+          setCorrectCount((prev) => prev + 1);
+        } else {
+          setWrongQuestions((prev) => [...prev, currentQuestion]);
+        }
+        setAnsweredQuestions((prev) => [...prev, isCorrect]);
+      } else {
+        // Validate via edge function for database questions
+        const validation = await validateAnswer(currentQuestion.id, selectedAnswer);
+        setLastValidation(validation);
+        
+        if (validation.isCorrect) {
+          setCorrectCount((prev) => prev + 1);
+        } else {
+          setWrongQuestions((prev) => [...prev, currentQuestion]);
+        }
+        setAnsweredQuestions((prev) => [...prev, validation.isCorrect]);
+      }
+      
+      setShowResult(true);
+    } catch (error) {
+      console.error('Error validating answer:', error);
+    } finally {
+      setIsValidating(false);
     }
-    setAnsweredQuestions((prev) => [...prev, isCorrect]);
-    setShowResult(true);
   }, [selectedAnswer, currentQuestion]);
 
   const nextQuestion = useCallback(() => {
     setSelectedAnswer(null);
     setShowResult(false);
+    setLastValidation(null);
     setCurrentIndex((prev) => prev + 1);
   }, []);
 
@@ -186,6 +247,7 @@ export function useQuizState(questions: Question[]) {
     setCorrectCount(0);
     setAnsweredQuestions([]);
     setWrongQuestions([]);
+    setLastValidation(null);
   }, []);
 
   return {
@@ -194,9 +256,11 @@ export function useQuizState(questions: Question[]) {
     selectedAnswer,
     setSelectedAnswer,
     showResult,
+    isValidating,
     correctCount,
     answeredQuestions,
     wrongQuestions,
+    lastValidation,
     isComplete,
     progress,
     submitAnswer,
