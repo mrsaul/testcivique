@@ -25,6 +25,7 @@ export default function QuizPage() {
   const [loading, setLoading] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [timeUp, setTimeUp] = useState(false);
+  const [isReviewMode, setIsReviewMode] = useState(false);
 
   const sessionType = type as SessionType || 'daily';
   const theme = themeId as ThemeId | undefined;
@@ -34,6 +35,16 @@ export default function QuizPage() {
   const isMockExam = sessionType === 'mock_exam';
 
   const quizState = useQuizState(questions);
+
+  const handleReviewMistakes = useCallback(() => {
+    if (quizState.wrongQuestions.length > 0) {
+      setQuestions(quizState.wrongQuestions);
+      setIsReviewMode(true);
+      setTimeUp(false);
+      quizState.reset();
+      badgesCheckedRef.current = false;
+    }
+  }, [quizState]);
 
   const handleTimeUp = useCallback(() => {
     setTimeUp(true);
@@ -231,13 +242,20 @@ export default function QuizPage() {
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <div>
-              <h1 className="text-xl font-display font-bold">{getTitle()}</h1>
-              <p className="text-sm text-muted-foreground">{config.description}</p>
+              <h1 className="text-xl font-display font-bold">
+                {isReviewMode ? '📝 Révision des erreurs' : getTitle()}
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                {isReviewMode 
+                  ? `${questions.length} question${questions.length > 1 ? 's' : ''} à revoir`
+                  : config.description
+                }
+              </p>
             </div>
           </div>
 
-          {/* Timer for mock exam */}
-          {isMockExam && !quizState.isComplete && !timeUp && (
+          {/* Timer for mock exam (not in review mode) */}
+          {isMockExam && !isReviewMode && !quizState.isComplete && !timeUp && (
             <QuizTimer
               durationMinutes={EXAM_CONFIG.mockExamDuration}
               onTimeUp={handleTimeUp}
@@ -250,13 +268,16 @@ export default function QuizPage() {
           <QuizResults
             correctCount={quizState.correctCount}
             totalQuestions={questions.length}
+            wrongCount={quizState.wrongQuestions.length}
             onRetry={() => {
               setTimeUp(false);
+              setIsReviewMode(false);
               quizState.reset();
               badgesCheckedRef.current = false;
               window.location.reload();
             }}
-            sessionType={sessionType}
+            onReviewMistakes={quizState.wrongQuestions.length > 0 ? handleReviewMistakes : undefined}
+            sessionType={isReviewMode ? 'daily' : sessionType}
           />
         ) : (
           <div className="space-y-6">

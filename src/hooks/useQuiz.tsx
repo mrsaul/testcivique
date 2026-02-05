@@ -154,6 +154,7 @@ export function useQuizState(questions: Question[]) {
   const [showResult, setShowResult] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]);
+  const [wrongQuestions, setWrongQuestions] = useState<Question[]>([]);
 
   const currentQuestion = questions[currentIndex];
   const isComplete = currentIndex >= questions.length;
@@ -165,6 +166,8 @@ export function useQuizState(questions: Question[]) {
     const isCorrect = selectedAnswer === currentQuestion.correct_answer;
     if (isCorrect) {
       setCorrectCount((prev) => prev + 1);
+    } else {
+      setWrongQuestions((prev) => [...prev, currentQuestion]);
     }
     setAnsweredQuestions((prev) => [...prev, isCorrect]);
     setShowResult(true);
@@ -182,6 +185,7 @@ export function useQuizState(questions: Question[]) {
     setShowResult(false);
     setCorrectCount(0);
     setAnsweredQuestions([]);
+    setWrongQuestions([]);
   }, []);
 
   return {
@@ -192,6 +196,7 @@ export function useQuizState(questions: Question[]) {
     showResult,
     correctCount,
     answeredQuestions,
+    wrongQuestions,
     isComplete,
     progress,
     submitAnswer,
