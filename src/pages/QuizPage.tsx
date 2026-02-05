@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { QuizProgress } from '@/components/quiz/QuizProgress';
@@ -12,6 +12,7 @@ import { SAMPLE_QUESTIONS } from '@/lib/questions-data';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useCheckAndAwardBadges } from '@/hooks/useBadges';
 
 type SessionType = 'daily' | 'theme' | 'mock_exam';
 
@@ -26,6 +27,8 @@ export default function QuizPage() {
   const sessionType = type as SessionType || 'daily';
   const theme = themeId as ThemeId | undefined;
   const config = SESSION_TYPES[sessionType];
+  const { checkBadges } = useCheckAndAwardBadges();
+  const badgesCheckedRef = useRef(false);
 
   const quizState = useQuizState(questions);
 
@@ -102,10 +105,12 @@ export default function QuizPage() {
     loadQuestions();
   }, [theme, sessionType, config.questionCount, user]);
 
-  // Update profile stats when quiz completes
+  // Update profile stats and check badges when quiz completes
   useEffect(() => {
     const updateStats = async () => {
       if (!quizState.isComplete || !user || !sessionId) return;
+      if (badgesCheckedRef.current) return;
+      badgesCheckedRef.current = true;
 
       try {
         // Complete the session
@@ -155,13 +160,22 @@ export default function QuizPage() {
             })
             .eq('user_id', user.id);
         }
+
+        // Check and award badges
+        await checkBadges({
+          quizCompleted: true,
+          correctCount: quizState.correctCount,
+          totalQuestions: questions.length,
+          sessionType: sessionType,
+          theme: theme,
+        });
       } catch (err) {
         console.error('Error updating stats:', err);
       }
     };
 
     updateStats();
-  }, [quizState.isComplete, quizState.correctCount, user, sessionId, questions.length]);
+  }, [quizState.isComplete, quizState.correctCount, user, sessionId, questions.length, sessionType, theme, checkBadges]);
 
   const getTitle = () => {
     if (theme && THEMES[theme]) {
