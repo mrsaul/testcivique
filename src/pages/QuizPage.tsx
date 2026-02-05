@@ -6,7 +6,7 @@ import { QuizQuestion } from '@/components/quiz/QuizQuestion';
 import { QuizResults } from '@/components/quiz/QuizResults';
 import { QuizTimer } from '@/components/quiz/QuizTimer';
 import { Button } from '@/components/ui/button';
-import { useQuizState, Question } from '@/hooks/useQuiz';
+import { useQuizState, Question, QuizQuestion as QuizQuestionType } from '@/hooks/useQuiz';
 import { useAuth } from '@/hooks/useAuth';
 import { THEMES, ThemeId, SESSION_TYPES, EXAM_CONFIG } from '@/lib/constants';
 import { SAMPLE_QUESTIONS } from '@/lib/questions-data';
@@ -38,7 +38,8 @@ export default function QuizPage() {
 
   const handleReviewMistakes = useCallback(() => {
     if (quizState.wrongQuestions.length > 0) {
-      setQuestions(quizState.wrongQuestions);
+      // Cast wrongQuestions to Question[] for review mode (they have correct_answer from validation)
+      setQuestions(quizState.wrongQuestions as Question[]);
       setIsReviewMode(true);
       setTimeUp(false);
       quizState.reset();
@@ -58,8 +59,8 @@ export default function QuizPage() {
       setLoading(true);
       
       try {
-        // Try to fetch from database first
-        let query = supabase.from('questions').select('*');
+        // Try to fetch from secure view (without correct_answer)
+        let query = supabase.from('quiz_questions').select('*');
         
         if (theme) {
           query = query.eq('theme', theme);
@@ -88,12 +89,13 @@ export default function QuizPage() {
             difficulty: q.difficulty as 'facile' | 'moyen' | 'difficile',
           }));
         } else {
-          // Use database questions
+          // Use database questions (cast to Question for compatibility)
           const shuffled = [...dbQuestions].sort(() => Math.random() - 0.5);
           questionsToUse = shuffled.slice(0, config.questionCount).map(q => ({
             ...q,
             options: q.options as string[],
-          }));
+            correct_answer: -1, // Placeholder, will be validated server-side
+          })) as Question[];
         }
 
         setQuestions(questionsToUse);
@@ -293,6 +295,8 @@ export default function QuizPage() {
                 selectedAnswer={quizState.selectedAnswer}
                 onSelectAnswer={quizState.setSelectedAnswer}
                 showResult={quizState.showResult}
+                isValidating={quizState.isValidating}
+                validation={quizState.lastValidation}
                 onSubmit={quizState.submitAnswer}
                 onNext={quizState.nextQuestion}
               />
