@@ -3,17 +3,26 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 import { EXAM_CONFIG } from '@/lib/constants';
-import { Trophy, Target, RotateCcw, Home, Share2 } from 'lucide-react';
+import { Trophy, Target, RotateCcw, Home, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface QuizResultsProps {
   correctCount: number;
   totalQuestions: number;
   onRetry: () => void;
+  onReviewMistakes?: () => void;
+  wrongCount?: number;
   sessionType: 'daily' | 'theme' | 'mock_exam';
 }
 
-export function QuizResults({ correctCount, totalQuestions, onRetry, sessionType }: QuizResultsProps) {
+export function QuizResults({ 
+  correctCount, 
+  totalQuestions, 
+  onRetry, 
+  onReviewMistakes,
+  wrongCount = 0,
+  sessionType 
+}: QuizResultsProps) {
   const percentage = Math.round((correctCount / totalQuestions) * 100);
   const passed = percentage >= EXAM_CONFIG.passingPercentage;
   const isMockExam = sessionType === 'mock_exam';
@@ -83,17 +92,30 @@ export function QuizResults({ correctCount, totalQuestions, onRetry, sessionType
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button onClick={onRetry} variant="outline" className="flex-1">
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Recommencer
-            </Button>
-            <Button asChild className="flex-1">
-              <Link to="/dashboard">
-                <Home className="w-4 h-4 mr-2" />
-                Tableau de bord
-              </Link>
-            </Button>
+          <div className="flex flex-col gap-3">
+            {wrongCount > 0 && onReviewMistakes && (
+              <Button 
+                onClick={onReviewMistakes} 
+                variant="default"
+                className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Réviser les {wrongCount} erreur{wrongCount > 1 ? 's' : ''}
+              </Button>
+            )}
+            
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button onClick={onRetry} variant="outline" className="flex-1">
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Recommencer
+              </Button>
+              <Button asChild className="flex-1">
+                <Link to="/dashboard">
+                  <Home className="w-4 h-4 mr-2" />
+                  Tableau de bord
+                </Link>
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
