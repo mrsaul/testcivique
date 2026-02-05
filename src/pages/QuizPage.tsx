@@ -1,13 +1,14 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { QuizProgress } from '@/components/quiz/QuizProgress';
 import { QuizQuestion } from '@/components/quiz/QuizQuestion';
 import { QuizResults } from '@/components/quiz/QuizResults';
+import { QuizTimer } from '@/components/quiz/QuizTimer';
 import { Button } from '@/components/ui/button';
 import { useQuizState, Question } from '@/hooks/useQuiz';
 import { useAuth } from '@/hooks/useAuth';
-import { THEMES, ThemeId, SESSION_TYPES } from '@/lib/constants';
+import { THEMES, ThemeId, SESSION_TYPES, EXAM_CONFIG } from '@/lib/constants';
 import { SAMPLE_QUESTIONS } from '@/lib/questions-data';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -23,14 +24,23 @@ export default function QuizPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [timeUp, setTimeUp] = useState(false);
 
   const sessionType = type as SessionType || 'daily';
   const theme = themeId as ThemeId | undefined;
   const config = SESSION_TYPES[sessionType];
   const { checkBadges } = useCheckAndAwardBadges();
   const badgesCheckedRef = useRef(false);
+  const isMockExam = sessionType === 'mock_exam';
 
   const quizState = useQuizState(questions);
+
+  const handleTimeUp = useCallback(() => {
+    setTimeUp(true);
+    toast.error('Temps écoulé !', {
+      description: 'Le temps imparti pour l\'examen est terminé.',
+    });
+  }, []);
 
   useEffect(() => {
     const loadQuestions = async () => {
@@ -211,27 +221,39 @@ export default function QuizPage() {
     <Layout>
       <div className="container mx-auto px-4 py-8 max-w-2xl">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <div>
-            <h1 className="text-xl font-display font-bold">{getTitle()}</h1>
-            <p className="text-sm text-muted-foreground">{config.description}</p>
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <div>
+              <h1 className="text-xl font-display font-bold">{getTitle()}</h1>
+              <p className="text-sm text-muted-foreground">{config.description}</p>
+            </div>
           </div>
+
+          {/* Timer for mock exam */}
+          {isMockExam && !quizState.isComplete && !timeUp && (
+            <QuizTimer
+              durationMinutes={EXAM_CONFIG.mockExamDuration}
+              onTimeUp={handleTimeUp}
+              isPaused={quizState.showResult}
+            />
+          )}
         </div>
 
-        {quizState.isComplete ? (
+        {quizState.isComplete || timeUp ? (
           <QuizResults
             correctCount={quizState.correctCount}
             totalQuestions={questions.length}
             onRetry={() => {
+              setTimeUp(false);
               quizState.reset();
-              // Reload questions
+              badgesCheckedRef.current = false;
               window.location.reload();
             }}
             sessionType={sessionType}
