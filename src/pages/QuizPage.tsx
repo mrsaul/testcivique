@@ -20,7 +20,7 @@ import { useCheckAndAwardBadges } from '@/hooks/useBadges';
 type SessionType = 'daily' | 'theme' | 'mock_exam';
 
 export default function QuizPage() {
-  const { type, themeId } = useParams<{ type: SessionType; themeId?: string }>();
+  const { type, themeId } = useParams<{ type?: string; themeId?: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -30,9 +30,10 @@ export default function QuizPage() {
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [showSetup, setShowSetup] = useState(true);
 
-  const sessionType = type as SessionType || 'daily';
+  // Map URL param to session type (handle 'exam' -> 'mock_exam')
+  const sessionType: SessionType = type === 'exam' ? 'mock_exam' : (type as SessionType) || 'daily';
   const theme = themeId as ThemeId | undefined;
-  const config = SESSION_TYPES[sessionType];
+  const config = SESSION_TYPES[sessionType] || SESSION_TYPES.daily;
   const { checkBadges } = useCheckAndAwardBadges();
   const badgesCheckedRef = useRef(false);
   const isMockExam = sessionType === 'mock_exam';
