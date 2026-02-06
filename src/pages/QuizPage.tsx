@@ -5,9 +5,11 @@ import { QuizProgress } from '@/components/quiz/QuizProgress';
 import { QuizQuestion } from '@/components/quiz/QuizQuestion';
 import { QuizResults } from '@/components/quiz/QuizResults';
 import { QuizTimer } from '@/components/quiz/QuizTimer';
+import { ExcludeMasteredToggle } from '@/components/quiz/ExcludeMasteredToggle';
 import { Button } from '@/components/ui/button';
 import { useQuizState, Question, QuizQuestion as QuizQuestionType } from '@/hooks/useQuiz';
 import { useAuth } from '@/hooks/useAuth';
+import { useMasteredQuestions, useExcludeMastered } from '@/hooks/useMasteredQuestions';
 import { THEMES, ThemeId, SESSION_TYPES, EXAM_CONFIG } from '@/lib/constants';
 import { SAMPLE_QUESTIONS } from '@/lib/questions-data';
 import { ArrowLeft, Loader2 } from 'lucide-react';
@@ -26,6 +28,7 @@ export default function QuizPage() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [timeUp, setTimeUp] = useState(false);
   const [isReviewMode, setIsReviewMode] = useState(false);
+  const [showSetup, setShowSetup] = useState(true);
 
   const sessionType = type as SessionType || 'daily';
   const theme = themeId as ThemeId | undefined;
@@ -33,6 +36,9 @@ export default function QuizPage() {
   const { checkBadges } = useCheckAndAwardBadges();
   const badgesCheckedRef = useRef(false);
   const isMockExam = sessionType === 'mock_exam';
+
+  const { data: masteredQuestions, isLoading: loadingMastered } = useMasteredQuestions();
+  const { getPreference } = useExcludeMastered();
 
   const quizState = useQuizState(questions);
 
@@ -54,79 +60,103 @@ export default function QuizPage() {
     });
   }, []);
 
+  const startQuiz = useCallback(() => {
+    setShowSetup(false);
+  }, []);
+
   useEffect(() => {
-    const loadQuestions = async () => {
-      setLoading(true);
+    // Wait until we know the mastered questions (if user is logged in)
+    if (!showSetup) {
+      loadQuestions();
+    }
+  }, [showSetup]);
+
+  const loadQuestions = async () => {
+    setLoading(true);
+    const excludeMastered = getPreference();
+    
+    try {
+      // Try to fetch from secure view (without correct_answer)
+      let query = supabase.from('quiz_questions').select('*');
       
-      try {
-        // Try to fetch from secure view (without correct_answer)
-        let query = supabase.from('quiz_questions').select('*');
-        
-        if (theme) {
-          query = query.eq('theme', theme);
-        }
-
-        const { data: dbQuestions, error } = await query;
-
-        let questionsToUse: Question[];
-
-        if (error || !dbQuestions || dbQuestions.length === 0) {
-          // Use sample questions if database is empty
-          let filtered = SAMPLE_QUESTIONS;
-          if (theme) {
-            filtered = SAMPLE_QUESTIONS.filter(q => q.theme === theme);
-          }
-          
-          // Shuffle and limit
-          const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-          questionsToUse = shuffled.slice(0, config.questionCount).map((q, i) => ({
-            id: `sample-${i}`,
-            theme: q.theme as ThemeId,
-            question: q.question,
-            options: q.options,
-            correct_answer: q.correct_answer,
-            explanation: q.explanation,
-            difficulty: q.difficulty as 'facile' | 'moyen' | 'difficile',
-          }));
-        } else {
-          // Use database questions (cast to Question for compatibility)
-          const shuffled = [...dbQuestions].sort(() => Math.random() - 0.5);
-          questionsToUse = shuffled.slice(0, config.questionCount).map(q => ({
-            ...q,
-            options: q.options as string[],
-            correct_answer: -1, // Placeholder, will be validated server-side
-          })) as Question[];
-        }
-
-        setQuestions(questionsToUse);
-
-        // Create session if authenticated
-        if (user) {
-          const { data: session, error: sessionError } = await supabase
-            .from('quiz_sessions')
-            .insert({
-              user_id: user.id,
-              session_type: sessionType,
-              theme: theme || null,
-              total_questions: questionsToUse.length,
-            })
-            .select()
-            .single();
-
-          if (!sessionError && session) {
-            setSessionId(session.id);
-          }
-        }
-      } catch (err) {
-        console.error('Error loading questions:', err);
-        toast.error('Erreur lors du chargement des questions');
-      } finally {
-        setLoading(false);
+      if (theme) {
+        query = query.eq('theme', theme);
       }
-    };
 
-    loadQuestions();
-  }, [theme, sessionType, config.questionCount, user]);
+      const { data: dbQuestions, error } = await query;
+
+      let questionsToUse: Question[];
+
+      if (error || !dbQuestions || dbQuestions.length === 0) {
+        // Use sample questions if database is empty
+        let filtered = SAMPLE_QUESTIONS;
+        if (theme) {
+          filtered = SAMPLE_QUESTIONS.filter(q => q.theme === theme);
+        }
+        
+        // Shuffle and limit
+        const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+        questionsToUse = shuffled.slice(0, config.questionCount).map((q, i) => ({
+          id: `sample-${i}`,
+          theme: q.theme as ThemeId,
+          question: q.question,
+          options: q.options,
+          correct_answer: q.correct_answer,
+          explanation: q.explanation,
+          difficulty: q.difficulty as 'facile' | 'moyen' | 'difficile',
+        }));
+      } else {
+        // Filter out mastered questions if the option is enabled
+        let filteredQuestions = dbQuestions;
+        if (excludeMastered && masteredQuestions && masteredQuestions.size > 0) {
+          filteredQuestions = dbQuestions.filter(q => !masteredQuestions.has(q.id));
+          
+          // If all questions are mastered, show a message and use all questions
+          if (filteredQuestions.length === 0) {
+            toast.info('Félicitations ! Vous avez maîtrisé toutes les questions de ce thème.', {
+              description: 'Toutes les questions seront incluses.',
+            });
+            filteredQuestions = dbQuestions;
+          } else if (filteredQuestions.length < config.questionCount) {
+            toast.info(`${filteredQuestions.length} questions non maîtrisées disponibles.`);
+          }
+        }
+
+        // Use database questions (cast to Question for compatibility)
+        const shuffled = [...filteredQuestions].sort(() => Math.random() - 0.5);
+        questionsToUse = shuffled.slice(0, config.questionCount).map(q => ({
+          ...q,
+          options: q.options as string[],
+          correct_answer: -1, // Placeholder, will be validated server-side
+        })) as Question[];
+      }
+
+      setQuestions(questionsToUse);
+
+      // Create session if authenticated
+      if (user) {
+        const { data: session, error: sessionError } = await supabase
+          .from('quiz_sessions')
+          .insert({
+            user_id: user.id,
+            session_type: sessionType,
+            theme: theme || null,
+            total_questions: questionsToUse.length,
+          })
+          .select()
+          .single();
+
+        if (!sessionError && session) {
+          setSessionId(session.id);
+        }
+      }
+    } catch (err) {
+      console.error('Error loading questions:', err);
+      toast.error('Erreur lors du chargement des questions');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Update profile stats and check badges when quiz completes
   useEffect(() => {
@@ -206,6 +236,54 @@ export default function QuizPage() {
     }
     return config.name;
   };
+
+  // Show setup screen with toggle option
+  if (showSetup && !isReviewMode) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-8 max-w-md">
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-2xl font-display font-bold mb-2">{getTitle()}</h1>
+              <p className="text-muted-foreground">{config.description}</p>
+            </div>
+
+            <div className="bg-card rounded-xl border p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Questions</span>
+                <span className="font-bold">{config.questionCount}</span>
+              </div>
+              {isMockExam && (
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Durée</span>
+                  <span className="font-bold">{EXAM_CONFIG.mockExamDuration} min</span>
+                </div>
+              )}
+            </div>
+
+            <ExcludeMasteredToggle />
+
+            <div className="flex flex-col gap-3">
+              <Button onClick={startQuiz} size="lg" className="w-full" disabled={loadingMastered}>
+                {loadingMastered ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Chargement...
+                  </>
+                ) : (
+                  'Commencer'
+                )}
+              </Button>
+              <Button variant="outline" onClick={() => navigate(-1)} className="w-full">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Retour
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   if (loading) {
     return (
