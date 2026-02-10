@@ -10,6 +10,7 @@ import RegisterPage from '@/pages/RegisterPage';
 import DashboardPage from '@/pages/DashboardPage';
 import ThemesPage from '@/pages/ThemesPage';
 import QuizPage from '@/pages/QuizPage';
+import InstallPage from '@/pages/InstallPage';
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/install" element={<InstallPage />} />
       <Route
         path="/login"
         element={
