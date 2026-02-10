@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 import { useAuth } from '@/hooks/useAuth';
-import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame } from 'lucide-react';
+import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone } from 'lucide-react';
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -145,6 +145,22 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Install CTA */}
+      <section className="py-10 bg-muted/50">
+        <div className="container mx-auto px-4 text-center">
+          <div className="inline-flex items-center gap-3 bg-card border rounded-2xl px-6 py-4 shadow-card">
+            <Smartphone className="w-6 h-6 text-primary shrink-0" />
+            <div className="text-left">
+              <p className="font-semibold text-sm">Installez l'app sur votre téléphone</p>
+              <p className="text-xs text-muted-foreground">Révisez hors-ligne, comme une vraie application</p>
+            </div>
+            <Button size="sm" variant="outline" asChild>
+              <Link to="/install">Installer</Link>
+            </Button>
           </div>
         </div>
       </section>
