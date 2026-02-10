@@ -6,6 +6,7 @@ import { QuizQuestion } from '@/components/quiz/QuizQuestion';
 import { QuizResults } from '@/components/quiz/QuizResults';
 import { QuizTimer } from '@/components/quiz/QuizTimer';
 import { ExcludeMasteredToggle } from '@/components/quiz/ExcludeMasteredToggle';
+import { DifficultyFilter, DifficultyLevel } from '@/components/quiz/DifficultyFilter';
 import { Button } from '@/components/ui/button';
 import { useQuizState, Question, QuizQuestion as QuizQuestionType } from '@/hooks/useQuiz';
 import { useAuth } from '@/hooks/useAuth';
@@ -29,6 +30,7 @@ export default function QuizPage() {
   const [timeUp, setTimeUp] = useState(false);
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [showSetup, setShowSetup] = useState(true);
+  const [difficultyFilter, setDifficultyFilter] = useState<DifficultyLevel[]>(['facile', 'moyen', 'difficile']);
 
   // Map URL param to session type (handle 'exam' -> 'mock_exam')
   const sessionType: SessionType = type === 'exam' ? 'mock_exam' : (type as SessionType) || 'daily';
@@ -84,6 +86,10 @@ export default function QuizPage() {
         query = query.eq('theme', theme);
       }
 
+      if (difficultyFilter.length < 3) {
+        query = query.in('difficulty', difficultyFilter);
+      }
+
       const { data: dbQuestions, error } = await query;
 
       let questionsToUse: Question[];
@@ -92,7 +98,10 @@ export default function QuizPage() {
         // Use sample questions if database is empty
         let filtered = SAMPLE_QUESTIONS;
         if (theme) {
-          filtered = SAMPLE_QUESTIONS.filter(q => q.theme === theme);
+          filtered = filtered.filter(q => q.theme === theme);
+        }
+        if (difficultyFilter.length < 3) {
+          filtered = filtered.filter(q => difficultyFilter.includes(q.difficulty as DifficultyLevel));
         }
         
         // Shuffle and limit
@@ -263,6 +272,7 @@ export default function QuizPage() {
             </div>
 
             <ExcludeMasteredToggle />
+            <DifficultyFilter selected={difficultyFilter} onChange={setDifficultyFilter} />
 
             <div className="flex flex-col gap-3">
               <Button onClick={startQuiz} size="lg" className="w-full" disabled={loadingMastered}>
