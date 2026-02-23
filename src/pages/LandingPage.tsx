@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 import { useAuth } from '@/hooks/useAuth';
-import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone } from 'lucide-react';
+import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, Mail, ExternalLink } from 'lucide-react';
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -161,6 +161,77 @@ export default function LandingPage() {
             <Button size="sm" variant="outline" asChild>
               <Link to="/install">Installer</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Ressources Officielles */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-display font-bold mb-4">
+                Ressources Officielles
+              </h2>
+              <p className="text-muted-foreground">
+                Les liens indispensables pour vos démarches administratives.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <a
+                href="https://formation-civique.interieur.gouv.fr/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 p-5 rounded-xl bg-card border shadow-sm hover:shadow-md transition-shadow group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5 text-primary" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-semibold flex items-center gap-1">
+                    Préparation Officielle
+                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Plateforme officielle de formation civique du gouvernement.
+                  </p>
+                </div>
+              </a>
+
+              <a
+                href="https://www.lefrancaisdesaffaires.fr/candidat/examen-civique/presentation/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 p-5 rounded-xl bg-card border shadow-sm hover:shadow-md transition-shadow group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-semibold flex items-center gap-1">
+                    Inscription à l'examen
+                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Inscrivez-vous en ligne pour passer votre examen civique.
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="py-10 bg-muted/50">
+        <div className="container mx-auto px-4 text-center">
+          <div className="inline-flex items-center gap-3 text-sm text-muted-foreground">
+            <Mail className="w-4 h-4" />
+            <span>Contact :</span>
+            <a href="mailto:contact@letestcivique.org" className="text-primary hover:underline font-medium">
+              contact@letestcivique.org
+            </a>
           </div>
         </div>
       </section>
