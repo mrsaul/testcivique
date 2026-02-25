@@ -11,6 +11,7 @@ import DashboardPage from '@/pages/DashboardPage';
 import ThemesPage from '@/pages/ThemesPage';
 import QuizPage from '@/pages/QuizPage';
 import InstallPage from '@/pages/InstallPage';
+import MentionsLegalesPage from '@/pages/MentionsLegalesPage';
 
 const queryClient = new QueryClient();
 
@@ -103,6 +104,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

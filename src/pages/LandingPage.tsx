@@ -235,18 +235,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section className="py-10 bg-muted/50">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-3 text-sm text-muted-foreground">
-            <Mail className="w-4 h-4" />
-            <span>Contact :</span>
-            <a href="mailto:contact@letestcivique.org" className="text-primary hover:underline font-medium">
-              contact@letestcivique.org
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-primary">
