@@ -78,6 +78,14 @@ export function Layout({ children }: LayoutProps) {
                     Mentions légales
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/politique-confidentialite"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    Politique de confidentialité
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
