@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 import { useAuth } from '@/hooks/useAuth';
-import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, Mail, ExternalLink } from 'lucide-react';
+import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, Mail, ExternalLink, Download } from 'lucide-react';
+import { generateQuestionsPDF } from '@/lib/generate-pdf';
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -218,6 +219,17 @@ export default function LandingPage() {
                   </p>
                 </div>
               </a>
+            </div>
+
+            <div className="mt-6 text-center">
+              <Button
+                variant="outline"
+                onClick={generateQuestionsPDF}
+                className="gap-2"
+              >
+                <Download className="w-4 h-4" />
+                Télécharger le questionnaire (PDF)
+              </Button>
             </div>
           </div>
         </div>
