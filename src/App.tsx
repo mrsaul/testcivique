@@ -12,6 +12,7 @@ import ThemesPage from '@/pages/ThemesPage';
 import QuizPage from '@/pages/QuizPage';
 import InstallPage from '@/pages/InstallPage';
 import MentionsLegalesPage from '@/pages/MentionsLegalesPage';
+import PolitiqueConfidentialitePage from '@/pages/PolitiqueConfidentialitePage';
 
 const queryClient = new QueryClient();
 
@@ -105,6 +106,7 @@ function AppRoutes() {
         }
       />
       <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+      <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
