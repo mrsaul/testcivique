@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/seo/SEOHead';
 import { StatsCards } from '@/components/dashboard/StatsCards';
 import { TrainingModes } from '@/components/dashboard/TrainingModes';
 import { ThemeCard } from '@/components/dashboard/ThemeCard';
@@ -30,6 +31,7 @@ export default function DashboardPage() {
 
   return (
     <Layout>
+      <SEOHead title="Tableau de bord" noIndex />
       <div className="container mx-auto px-4 py-8 space-y-8">
         {/* Welcome Header */}
         <div className="space-y-1">

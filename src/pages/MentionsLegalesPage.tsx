@@ -1,8 +1,10 @@
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/seo/SEOHead';
 
 export default function MentionsLegalesPage() {
   return (
     <Layout>
+      <SEOHead title="Mentions légales" description="Mentions légales du site Le Test Civique – éditeur, hébergement, propriété intellectuelle et protection des données." />
       <div className="container mx-auto px-4 py-12 max-w-3xl prose prose-sm dark:prose-invert">
         <h1>Mentions Légales</h1>
 
