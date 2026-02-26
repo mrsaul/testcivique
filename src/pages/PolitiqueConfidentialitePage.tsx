@@ -1,8 +1,10 @@
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/seo/SEOHead';
 
 export default function PolitiqueConfidentialitePage() {
   return (
     <Layout>
+      <SEOHead title="Politique de confidentialité" description="Politique de confidentialité et gestion des données personnelles conforme au RGPD pour Le Test Civique." />
       <div className="container mx-auto px-4 py-12 max-w-3xl prose prose-sm dark:prose-invert">
         <h1>Politique de Confidentialité</h1>
         <p className="lead">

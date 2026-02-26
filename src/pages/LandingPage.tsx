@@ -2,9 +2,23 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/seo/SEOHead';
 import { useAuth } from '@/hooks/useAuth';
 import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, Mail, ExternalLink, Download } from 'lucide-react';
 import { generateQuestionsPDF } from '@/lib/generate-pdf';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Test Civique",
+  "url": "https://testcivique.lovable.app",
+  "description": "Préparez votre examen civique français avec des quiz interactifs. 5 thèmes officiels, 150+ questions, suivi de progression.",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "inLanguage": "fr",
+  "audience": { "@type": "Audience", "audienceType": "Candidats à la nationalité française" },
+};
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -42,6 +56,11 @@ export default function LandingPage() {
 
   return (
     <Layout>
+      <SEOHead />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-5 pointer-events-none" />
