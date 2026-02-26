@@ -1,0 +1,76 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './useAuth';
+import { useCallback } from 'react';
+
+const FREE_QUESTION_LIMIT = 5;
+
+export function usePremiumStatus() {
+  const { user } = useAuth();
+
+  return useQuery({
+    queryKey: ['premium-status', user?.id],
+    queryFn: async () => {
+      if (!user) return { hasPremium: false, questionsAnswered: 0 };
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('has_premium, total_questions_answered')
+        .eq('user_id', user.id)
+        .single();
+
+      return {
+        hasPremium: profile?.has_premium ?? false,
+        questionsAnswered: profile?.total_questions_answered ?? 0,
+      };
+    },
+    enabled: !!user,
+  });
+}
+
+export function useCanAccessQuiz() {
+  const { data } = usePremiumStatus();
+  
+  if (!data) return { canAccess: true, remainingFree: FREE_QUESTION_LIMIT };
+  
+  if (data.hasPremium) return { canAccess: true, remainingFree: Infinity };
+  
+  const remaining = Math.max(0, FREE_QUESTION_LIMIT - data.questionsAnswered);
+  return { canAccess: remaining > 0, remainingFree: remaining };
+}
+
+export function useCreatePayment() {
+  const queryClient = useQueryClient();
+
+  const createPayment = useCallback(async () => {
+    const { data, error } = await supabase.functions.invoke('create-payment');
+    
+    if (error) throw error;
+    if (data?.error) throw new Error(data.error);
+    
+    if (data?.url) {
+      window.open(data.url, '_blank');
+    }
+    
+    return data;
+  }, []);
+
+  const verifyPayment = useCallback(async (sessionId: string) => {
+    const { data, error } = await supabase.functions.invoke('verify-payment', {
+      body: { session_id: sessionId },
+    });
+    
+    if (error) throw error;
+    
+    if (data?.premium) {
+      queryClient.invalidateQueries({ queryKey: ['premium-status'] });
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+    }
+    
+    return data;
+  }, [queryClient]);
+
+  return { createPayment, verifyPayment };
+}
+
+export { FREE_QUESTION_LIMIT };
