@@ -19,6 +19,7 @@ export type Database = {
           correct_answers: number | null
           created_at: string | null
           display_name: string | null
+          has_premium: boolean
           id: string
           last_practice_date: string | null
           streak_days: number | null
@@ -30,6 +31,7 @@ export type Database = {
           correct_answers?: number | null
           created_at?: string | null
           display_name?: string | null
+          has_premium?: boolean
           id?: string
           last_practice_date?: string | null
           streak_days?: number | null
@@ -41,6 +43,7 @@ export type Database = {
           correct_answers?: number | null
           created_at?: string | null
           display_name?: string | null
+          has_premium?: boolean
           id?: string
           last_practice_date?: string | null
           streak_days?: number | null
@@ -218,6 +221,36 @@ export type Database = {
           badge_type?: Database["public"]["Enums"]["badge_type"]
           earned_at?: string
           id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_purchases: {
+        Row: {
+          amount: number
+          currency: string
+          id: string
+          purchased_at: string
+          status: string
+          stripe_session_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          currency?: string
+          id?: string
+          purchased_at?: string
+          status?: string
+          stripe_session_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          currency?: string
+          id?: string
+          purchased_at?: string
+          status?: string
+          stripe_session_id?: string | null
           user_id?: string
         }
         Relationships: []
