@@ -10,6 +10,7 @@ export interface Profile {
   last_practice_date: string | null;
   total_questions_answered: number;
   correct_answers: number;
+  has_premium: boolean;
   created_at: string;
   updated_at: string;
 }

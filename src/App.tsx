@@ -13,6 +13,7 @@ import QuizPage from '@/pages/QuizPage';
 import InstallPage from '@/pages/InstallPage';
 import MentionsLegalesPage from '@/pages/MentionsLegalesPage';
 import PolitiqueConfidentialitePage from '@/pages/PolitiqueConfidentialitePage';
+import PaymentSuccessPage from '@/pages/PaymentSuccessPage';
 
 const queryClient = new QueryClient();
 
@@ -102,6 +103,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <QuizPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/payment-success"
+        element={
+          <ProtectedRoute>
+            <PaymentSuccessPage />
           </ProtectedRoute>
         }
       />

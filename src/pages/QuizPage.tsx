@@ -17,6 +17,8 @@ import { ArrowLeft, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useCheckAndAwardBadges } from '@/hooks/useBadges';
+import { useCanAccessQuiz } from '@/hooks/usePremium';
+import { PaywallCard } from '@/components/payment/PaywallCard';
 
 type SessionType = 'daily' | 'theme' | 'mock_exam';
 
@@ -42,6 +44,7 @@ export default function QuizPage() {
 
   const { data: masteredQuestions, isLoading: loadingMastered } = useMasteredQuestions();
   const { getPreference } = useExcludeMastered();
+  const { canAccess, remainingFree } = useCanAccessQuiz();
 
   const quizState = useQuizState(questions);
 
@@ -247,6 +250,23 @@ export default function QuizPage() {
     return config.name;
   };
 
+  // Show paywall if free limit reached
+  if (!canAccess) {
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-8 max-w-md">
+          <div className="space-y-6">
+            <Button variant="outline" onClick={() => navigate(-1)} className="w-full">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Retour
+            </Button>
+            <PaywallCard />
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   // Show setup screen with toggle option
   if (showSetup && !isReviewMode) {
     return (
@@ -256,6 +276,11 @@ export default function QuizPage() {
             <div className="text-center">
               <h1 className="text-2xl font-display font-bold mb-2">{getTitle()}</h1>
               <p className="text-muted-foreground">{config.description}</p>
+              {remainingFree !== Infinity && (
+                <p className="text-xs text-muted-foreground mt-2">
+                  {remainingFree} question{remainingFree > 1 ? 's' : ''} gratuite{remainingFree > 1 ? 's' : ''} restante{remainingFree > 1 ? 's' : ''}
+                </p>
+              )}
             </div>
 
             <div className="bg-card rounded-xl border p-6 space-y-4">
