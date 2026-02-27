@@ -6,6 +6,7 @@ import { SEOHead } from '@/components/seo/SEOHead';
 import { useAuth } from '@/hooks/useAuth';
 import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, Mail, ExternalLink, Download } from 'lucide-react';
 import { generateQuestionsPDF } from '@/lib/generate-pdf';
+import { PricingSection } from '@/components/landing/PricingSection';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -169,6 +170,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <PricingSection />
+
       {/* Install CTA */}
       <section className="py-10 bg-muted/50">
         <div className="container mx-auto px-4 text-center">
@@ -254,6 +258,8 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <PricingSection />
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-primary">
