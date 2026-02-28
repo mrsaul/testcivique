@@ -31,6 +31,15 @@ export function Layout({ children }: LayoutProps) {
               <h4 className="font-semibold text-sm">Ressources</h4>
               <ul className="space-y-2 text-sm">
                 <li>
+                  <Link
+                    to="/blog"
+                    className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    Blog
+                  </Link>
+                </li>
+                <li>
                   <a
                     href="https://formation-civique.interieur.gouv.fr/"
                     target="_blank"

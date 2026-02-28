@@ -41,6 +41,9 @@ export function Navbar() {
                 <Link to="/quiz/exam">
                   <Button variant="ghost">Examen blanc</Button>
                 </Link>
+                <Link to="/blog">
+                  <Button variant="ghost">Blog</Button>
+                </Link>
                 <Button variant="outline" size="sm" onClick={handleSignOut}>
                   <LogOut className="w-4 h-4 mr-2" />
                   Déconnexion
@@ -48,6 +51,9 @@ export function Navbar() {
               </>
             ) : (
               <>
+                <Link to="/blog">
+                  <Button variant="ghost">Blog</Button>
+                </Link>
                 <Link to="/login">
                   <Button variant="ghost">Connexion</Button>
                 </Link>
@@ -86,6 +92,9 @@ export function Navbar() {
                 <Link to="/quiz/exam" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="ghost" className="w-full justify-start">Examen blanc</Button>
                 </Link>
+                <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="ghost" className="w-full justify-start">Blog</Button>
+                </Link>
                 <Button variant="outline" onClick={handleSignOut} className="justify-start">
                   <LogOut className="w-4 h-4 mr-2" />
                   Déconnexion
@@ -93,6 +102,9 @@ export function Navbar() {
               </>
             ) : (
               <>
+                <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="ghost" className="w-full">Blog</Button>
+                </Link>
                 <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="ghost" className="w-full">Connexion</Button>
                 </Link>

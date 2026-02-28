@@ -14,6 +14,9 @@ import InstallPage from '@/pages/InstallPage';
 import MentionsLegalesPage from '@/pages/MentionsLegalesPage';
 import PolitiqueConfidentialitePage from '@/pages/PolitiqueConfidentialitePage';
 import PaymentSuccessPage from '@/pages/PaymentSuccessPage';
+import BlogPage from '@/pages/BlogPage';
+import BlogPostPage from '@/pages/BlogPostPage';
+import AdminBlogPage from '@/pages/AdminBlogPage';
 
 const queryClient = new QueryClient();
 
@@ -111,6 +114,16 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <PaymentSuccessPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/blog" element={<BlogPage />} />
+      <Route path="/blog/:slug" element={<BlogPostPage />} />
+      <Route
+        path="/admin/blog"
+        element={
+          <ProtectedRoute>
+            <AdminBlogPage />
           </ProtectedRoute>
         }
       />
