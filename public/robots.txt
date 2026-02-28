@@ -3,5 +3,6 @@ Allow: /
 Disallow: /dashboard
 Disallow: /themes
 Disallow: /quiz/
+Disallow: /admin/
 
 Sitemap: https://testcivique.lovable.app/sitemap.xml
