@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Mail, ExternalLink, BookOpen, FileText } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -18,17 +21,17 @@ export function Layout({ children }: LayoutProps) {
           <div className="grid gap-8 sm:grid-cols-3">
             {/* Brand */}
             <div className="space-y-3">
-              <Link to="/" className="text-lg font-display font-bold">
+              <Link to="/home" className="text-lg font-display font-bold">
                 🇫🇷 Le Test Civique
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Préparation gratuite à l'examen civique français, basée sur le contenu officiel.
+                {t('footer.description')}
               </p>
             </div>
 
             {/* Ressources */}
             <div className="space-y-3">
-              <h4 className="font-semibold text-sm">Ressources</h4>
+              <h4 className="font-semibold text-sm">{t('footer.resources')}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link
@@ -36,7 +39,7 @@ export function Layout({ children }: LayoutProps) {
                     className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
                   >
                     <BookOpen className="w-3.5 h-3.5" />
-                    Blog
+                    {t('nav.blog')}
                   </Link>
                 </li>
                 <li>
@@ -47,7 +50,7 @@ export function Layout({ children }: LayoutProps) {
                     className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
                   >
                     <BookOpen className="w-3.5 h-3.5" />
-                    Préparation Officielle
+                    {t('footer.officialPrep')}
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </li>
@@ -59,7 +62,7 @@ export function Layout({ children }: LayoutProps) {
                     className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
                   >
                     <FileText className="w-3.5 h-3.5" />
-                    Inscription à l'examen
+                    {t('footer.examRegistration')}
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </li>
@@ -68,7 +71,7 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Contact & Légal */}
             <div className="space-y-3">
-              <h4 className="font-semibold text-sm">Contact & Légal</h4>
+              <h4 className="font-semibold text-sm">{t('footer.contactLegal')}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
@@ -84,7 +87,7 @@ export function Layout({ children }: LayoutProps) {
                     to="/mentions-legales"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    Mentions légales
+                    {t('footer.legalNotice')}
                   </Link>
                 </li>
                 <li>
@@ -92,7 +95,7 @@ export function Layout({ children }: LayoutProps) {
                     to="/politique-confidentialite"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    Politique de confidentialité
+                    {t('footer.privacyPolicy')}
                   </Link>
                 </li>
               </ul>
@@ -100,7 +103,7 @@ export function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="mt-8 pt-6 border-t text-center text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Le Test Civique — Tous droits réservés
+            {t('footer.copyright', { year: new Date().getFullYear() })}
           </div>
         </div>
       </footer>

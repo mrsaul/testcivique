@@ -4,9 +4,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
 import { SEOHead } from '@/components/seo/SEOHead';
 import { useAuth } from '@/hooks/useAuth';
-import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, Mail, ExternalLink, Download } from 'lucide-react';
+import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, Download, ExternalLink } from 'lucide-react';
 import { generateQuestionsPDF } from '@/lib/generate-pdf';
 import { PricingSection } from '@/components/landing/PricingSection';
+import { useTranslation } from 'react-i18next';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -23,86 +24,49 @@ const jsonLd = {
 
 export default function LandingPage() {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const features = [
-    {
-      icon: Target,
-      title: '3 modes d\'entraînement',
-      description: 'Quotidien, par thème ou examen blanc pour varier votre apprentissage.',
-    },
-    {
-      icon: BookOpen,
-      title: '5 thèmes officiels',
-      description: 'Contenu basé sur le programme officiel de l\'examen civique.',
-    },
-    {
-      icon: Flame,
-      title: 'Suivi de progression',
-      description: 'Visualisez votre évolution et maintenez votre série quotidienne.',
-    },
-    {
-      icon: Trophy,
-      title: 'Objectif 80%',
-      description: 'Entraînez-vous jusqu\'à atteindre le seuil de réussite de l\'examen.',
-    },
+    { icon: Target, title: t('features.trainingModes'), description: t('features.trainingModesDesc') },
+    { icon: BookOpen, title: t('features.officialThemes'), description: t('features.officialThemesDesc') },
+    { icon: Flame, title: t('features.progressTracking'), description: t('features.progressTrackingDesc') },
+    { icon: Trophy, title: t('features.goal80'), description: t('features.goal80Desc') },
   ];
 
-  const themes = [
-    'Principes et valeurs de la République',
-    'Système institutionnel et politique',
-    'Droits et devoirs',
-    'Histoire, géographie et culture',
-    'Vivre dans la société française',
-  ];
+  const themeKeys = ['principes', 'institutions', 'droits', 'histoire', 'vivre'] as const;
 
   return (
     <Layout>
       <SEOHead />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      {/* Hero Section */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-5 pointer-events-none" />
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
               <span className="text-lg">🇫🇷</span>
-              Préparation à l'Examen Civique
+              {t('landing.badge')}
             </div>
-            
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
-              Réussissez votre{' '}
-              <span className="text-gradient">Examen Civique</span>{' '}
-              français
+              {t('landing.title')}{' '}
+              <span className="text-gradient">{t('landing.titleHighlight')}</span>{' '}
+              {t('landing.titleEnd')}
             </h1>
-            
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Entraînez-vous efficacement avec des questions basées sur le contenu officiel. 
-              Atteignez les <strong>80%</strong> requis grâce à un entraînement quotidien personnalisé.
-            </p>
-            
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: t('landing.subtitle') }} />
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               {user ? (
                 <Button size="lg" asChild className="text-lg px-8">
-                  <Link to="/dashboard">
-                    Continuer l'entraînement
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Link>
+                  <Link to="/dashboard">{t('landing.continuePractice')}<ArrowRight className="w-5 h-5 ml-2" /></Link>
                 </Button>
               ) : (
                 <>
                   <Button size="lg" asChild className="text-lg px-8">
-                    <Link to="/register">
-                      Commencer gratuitement
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </Link>
+                    <Link to="/register">{t('landing.startFree')}<ArrowRight className="w-5 h-5 ml-2" /></Link>
                   </Button>
                   <Button size="lg" variant="outline" asChild className="text-lg px-8">
-                    <Link to="/login">
-                      J'ai déjà un compte
-                    </Link>
+                    <Link to="/login">{t('landing.hasAccount')}</Link>
                   </Button>
                 </>
               )}
@@ -111,18 +75,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features */}
       <section className="py-16 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-display font-bold mb-4">
-              Un outil complet pour réussir
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Tout ce dont vous avez besoin pour préparer efficacement votre examen civique.
-            </p>
+            <h2 className="text-3xl font-display font-bold mb-4">{t('landing.featuresTitle')}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{t('landing.featuresSubtitle')}</p>
           </div>
-          
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature) => (
               <Card key={feature.title} className="border-0 shadow-card bg-card">
@@ -139,29 +98,19 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Themes Section */}
+      {/* Themes */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-display font-bold mb-4">
-                Les 5 thèmes de l'examen
-              </h2>
-              <p className="text-muted-foreground">
-                Maîtrisez chaque thème pour maximiser vos chances de succès.
-              </p>
+              <h2 className="text-3xl font-display font-bold mb-4">{t('landing.themesTitle')}</h2>
+              <p className="text-muted-foreground">{t('landing.themesSubtitle')}</p>
             </div>
-            
             <div className="space-y-3">
-              {themes.map((theme, index) => (
-                <div
-                  key={theme}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-card shadow-sm border"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">
-                    {index + 1}
-                  </div>
-                  <span className="font-medium">{theme}</span>
+              {themeKeys.map((key, index) => (
+                <div key={key} className="flex items-center gap-4 p-4 rounded-xl bg-card shadow-sm border">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">{index + 1}</div>
+                  <span className="font-medium">{t(`themes.${key}`)}</span>
                   <CheckCircle className="w-5 h-5 text-success ml-auto" />
                 </div>
               ))}
@@ -170,7 +119,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing Section */}
       <PricingSection />
 
       {/* Install CTA */}
@@ -179,100 +127,64 @@ export default function LandingPage() {
           <div className="inline-flex items-center gap-3 bg-card border rounded-2xl px-6 py-4 shadow-card">
             <Smartphone className="w-6 h-6 text-primary shrink-0" />
             <div className="text-left">
-              <p className="font-semibold text-sm">Installez l'app sur votre téléphone</p>
-              <p className="text-xs text-muted-foreground">Révisez hors-ligne, comme une vraie application</p>
+              <p className="font-semibold text-sm">{t('landing.installTitle')}</p>
+              <p className="text-xs text-muted-foreground">{t('landing.installSubtitle')}</p>
             </div>
             <Button size="sm" variant="outline" asChild>
-              <Link to="/install">Installer</Link>
+              <Link to="/install">{t('landing.install')}</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Ressources Officielles */}
+      {/* Resources */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-display font-bold mb-4">
-                Ressources Officielles
-              </h2>
-              <p className="text-muted-foreground">
-                Les liens indispensables pour vos démarches administratives.
-              </p>
+              <h2 className="text-3xl font-display font-bold mb-4">{t('landing.resourcesTitle')}</h2>
+              <p className="text-muted-foreground">{t('landing.resourcesSubtitle')}</p>
             </div>
-
             <div className="grid sm:grid-cols-2 gap-4">
-              <a
-                href="https://formation-civique.interieur.gouv.fr/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-4 p-5 rounded-xl bg-card border shadow-sm hover:shadow-md transition-shadow group"
-              >
+              <a href="https://formation-civique.interieur.gouv.fr/" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-5 rounded-xl bg-card border shadow-sm hover:shadow-md transition-shadow group">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-semibold flex items-center gap-1">
-                    Préparation Officielle
-                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Plateforme officielle de formation civique du gouvernement.
-                  </p>
+                  <p className="font-semibold flex items-center gap-1">{t('landing.officialPrep')}<ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" /></p>
+                  <p className="text-sm text-muted-foreground">{t('landing.officialPrepDesc')}</p>
                 </div>
               </a>
-
-              <a
-                href="https://www.lefrancaisdesaffaires.fr/candidat/examen-civique/presentation/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-4 p-5 rounded-xl bg-card border shadow-sm hover:shadow-md transition-shadow group"
-              >
+              <a href="https://www.lefrancaisdesaffaires.fr/candidat/examen-civique/presentation/" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-5 rounded-xl bg-card border shadow-sm hover:shadow-md transition-shadow group">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                   <Target className="w-5 h-5 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-semibold flex items-center gap-1">
-                    Inscription à l'examen
-                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Inscrivez-vous en ligne pour passer votre examen civique.
-                  </p>
+                  <p className="font-semibold flex items-center gap-1">{t('landing.examRegistration')}<ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" /></p>
+                  <p className="text-sm text-muted-foreground">{t('landing.examRegistrationDesc')}</p>
                 </div>
               </a>
             </div>
-
             <div className="mt-6 text-center">
-              <Button
-                variant="outline"
-                onClick={generateQuestionsPDF}
-                className="gap-2"
-              >
+              <Button variant="outline" onClick={generateQuestionsPDF} className="gap-2">
                 <Download className="w-4 h-4" />
-                Télécharger le questionnaire (PDF)
+                {t('landing.downloadPDF')}
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
       <PricingSection />
 
-      {/* CTA Section */}
+      {/* CTA */}
       <section className="py-16 bg-gradient-primary">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-display font-bold text-white mb-4">
-            Prêt à commencer ?
-          </h2>
-          <p className="text-white/80 mb-8 max-w-xl mx-auto">
-            Créez votre compte gratuit et commencez à vous entraîner dès maintenant.
-          </p>
+          <h2 className="text-3xl font-display font-bold text-white mb-4">{t('landing.ctaTitle')}</h2>
+          <p className="text-white/80 mb-8 max-w-xl mx-auto">{t('landing.ctaSubtitle')}</p>
           <Button size="lg" variant="secondary" asChild className="text-lg px-8">
             <Link to={user ? '/dashboard' : '/register'}>
-              {user ? 'Aller au tableau de bord' : 'Créer mon compte'}
+              {user ? t('landing.ctaDashboard') : t('landing.ctaRegister')}
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>

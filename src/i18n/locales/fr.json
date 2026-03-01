@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "themes": "Thèmes",
+    "mockExam": "Examen blanc",
+    "blog": "Blog",
+    "login": "Connexion",
+    "register": "Commencer",
+    "logout": "Déconnexion"
+  },
+  "landing": {
+    "badge": "Préparation à l'Examen Civique",
+    "title": "Réussissez votre",
+    "titleHighlight": "Examen Civique",
+    "titleEnd": "français",
+    "subtitle": "Entraînez-vous efficacement avec des questions basées sur le contenu officiel. Atteignez les <strong>80%</strong> requis grâce à un entraînement quotidien personnalisé.",
+    "startFree": "Commencer gratuitement",
+    "hasAccount": "J'ai déjà un compte",
+    "continuePractice": "Continuer l'entraînement",
+    "featuresTitle": "Un outil complet pour réussir",
+    "featuresSubtitle": "Tout ce dont vous avez besoin pour préparer efficacement votre examen civique.",
+    "themesTitle": "Les 5 thèmes de l'examen",
+    "themesSubtitle": "Maîtrisez chaque thème pour maximiser vos chances de succès.",
+    "installTitle": "Installez l'app sur votre téléphone",
+    "installSubtitle": "Révisez hors-ligne, comme une vraie application",
+    "install": "Installer",
+    "resourcesTitle": "Ressources Officielles",
+    "resourcesSubtitle": "Les liens indispensables pour vos démarches administratives.",
+    "officialPrep": "Préparation Officielle",
+    "officialPrepDesc": "Plateforme officielle de formation civique du gouvernement.",
+    "examRegistration": "Inscription à l'examen",
+    "examRegistrationDesc": "Inscrivez-vous en ligne pour passer votre examen civique.",
+    "downloadPDF": "Télécharger le questionnaire (PDF)",
+    "ctaTitle": "Prêt à commencer ?",
+    "ctaSubtitle": "Créez votre compte gratuit et commencez à vous entraîner dès maintenant.",
+    "ctaDashboard": "Aller au tableau de bord",
+    "ctaRegister": "Créer mon compte"
+  },
+  "features": {
+    "trainingModes": "3 modes d'entraînement",
+    "trainingModesDesc": "Quotidien, par thème ou examen blanc pour varier votre apprentissage.",
+    "officialThemes": "5 thèmes officiels",
+    "officialThemesDesc": "Contenu basé sur le programme officiel de l'examen civique.",
+    "progressTracking": "Suivi de progression",
+    "progressTrackingDesc": "Visualisez votre évolution et maintenez votre série quotidienne.",
+    "goal80": "Objectif 80%",
+    "goal80Desc": "Entraînez-vous jusqu'à atteindre le seuil de réussite de l'examen."
+  },
+  "themes": {
+    "principes": "Principes et valeurs de la République",
+    "institutions": "Système institutionnel et politique",
+    "droits": "Droits et devoirs",
+    "histoire": "Histoire, géographie et culture",
+    "vivre": "Vivre dans la société française"
+  },
+  "footer": {
+    "description": "Préparation gratuite à l'examen civique français, basée sur le contenu officiel.",
+    "resources": "Ressources",
+    "officialPrep": "Préparation Officielle",
+    "examRegistration": "Inscription à l'examen",
+    "contactLegal": "Contact & Légal",
+    "legalNotice": "Mentions légales",
+    "privacyPolicy": "Politique de confidentialité",
+    "copyright": "© {{year}} Le Test Civique — Tous droits réservés"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "loginSubtitle": "Connectez-vous à votre compte",
+    "registerTitle": "Créer un compte",
+    "registerSubtitle": "Commencez votre préparation",
+    "email": "Email",
+    "password": "Mot de passe",
+    "displayName": "Nom d'affichage",
+    "loginButton": "Se connecter",
+    "registerButton": "Créer mon compte",
+    "noAccount": "Pas de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "createOne": "Créer un compte",
+    "loginHere": "Se connecter",
+    "emailSent": "Email de vérification envoyé ! Vérifiez votre boîte de réception.",
+    "loginSuccess": "Connexion réussie !"
+  },
+  "languageSelect": {
+    "title": "Choisissez votre langue",
+    "subtitle": "Select your language / اختر لغتك"
+  }
+}
