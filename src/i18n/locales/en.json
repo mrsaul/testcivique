@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "themes": "Themes",
+    "mockExam": "Mock Exam",
+    "blog": "Blog",
+    "login": "Sign In",
+    "register": "Get Started",
+    "logout": "Sign Out"
+  },
+  "landing": {
+    "badge": "French Civic Exam Preparation",
+    "title": "Pass your",
+    "titleHighlight": "Civic Exam",
+    "titleEnd": "in France",
+    "subtitle": "Practice effectively with questions based on official content. Reach the required <strong>80%</strong> with personalized daily training.",
+    "startFree": "Start for free",
+    "hasAccount": "I already have an account",
+    "continuePractice": "Continue practicing",
+    "featuresTitle": "A complete tool to succeed",
+    "featuresSubtitle": "Everything you need to effectively prepare for your civic exam.",
+    "themesTitle": "The 5 exam themes",
+    "themesSubtitle": "Master each theme to maximize your chances of success.",
+    "installTitle": "Install the app on your phone",
+    "installSubtitle": "Study offline, like a real application",
+    "install": "Install",
+    "resourcesTitle": "Official Resources",
+    "resourcesSubtitle": "Essential links for your administrative procedures.",
+    "officialPrep": "Official Preparation",
+    "officialPrepDesc": "Official government civic training platform.",
+    "examRegistration": "Exam Registration",
+    "examRegistrationDesc": "Register online to take your civic exam.",
+    "downloadPDF": "Download questionnaire (PDF)",
+    "ctaTitle": "Ready to start?",
+    "ctaSubtitle": "Create your free account and start practicing now.",
+    "ctaDashboard": "Go to dashboard",
+    "ctaRegister": "Create my account"
+  },
+  "features": {
+    "trainingModes": "3 training modes",
+    "trainingModesDesc": "Daily, by theme or mock exam to vary your learning.",
+    "officialThemes": "5 official themes",
+    "officialThemesDesc": "Content based on the official civic exam program.",
+    "progressTracking": "Progress tracking",
+    "progressTrackingDesc": "Track your progress and maintain your daily streak.",
+    "goal80": "80% goal",
+    "goal80Desc": "Practice until you reach the exam passing threshold."
+  },
+  "themes": {
+    "principes": "Principles and values of the Republic",
+    "institutions": "Institutional and political system",
+    "droits": "Rights and duties",
+    "histoire": "History, geography and culture",
+    "vivre": "Living in French society"
+  },
+  "footer": {
+    "description": "Free preparation for the French civic exam, based on official content.",
+    "resources": "Resources",
+    "officialPrep": "Official Preparation",
+    "examRegistration": "Exam Registration",
+    "contactLegal": "Contact & Legal",
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "© {{year}} Le Test Civique — All rights reserved"
+  },
+  "auth": {
+    "loginTitle": "Sign In",
+    "loginSubtitle": "Sign in to your account",
+    "registerTitle": "Create Account",
+    "registerSubtitle": "Start your preparation",
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Display Name",
+    "loginButton": "Sign In",
+    "registerButton": "Create Account",
+    "noAccount": "No account?",
+    "hasAccount": "Already have an account?",
+    "createOne": "Create one",
+    "loginHere": "Sign in",
+    "emailSent": "Verification email sent! Check your inbox.",
+    "loginSuccess": "Login successful!"
+  },
+  "languageSelect": {
+    "title": "Choose your language",
+    "subtitle": "Choisissez votre langue / اختر لغتك"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "themes": "المواضيع",
+    "mockExam": "امتحان تجريبي",
+    "blog": "المدونة",
+    "login": "تسجيل الدخول",
+    "register": "ابدأ",
+    "logout": "تسجيل الخروج"
+  },
+  "landing": {
+    "badge": "التحضير لامتحان التربية المدنية الفرنسي",
+    "title": "انجح في",
+    "titleHighlight": "الامتحان المدني",
+    "titleEnd": "الفرنسي",
+    "subtitle": "تدرّب بفعالية مع أسئلة مبنية على المحتوى الرسمي. حقّق نسبة <strong>80%</strong> المطلوبة بفضل تدريب يومي مخصص.",
+    "startFree": "ابدأ مجاناً",
+    "hasAccount": "لدي حساب بالفعل",
+    "continuePractice": "متابعة التدريب",
+    "featuresTitle": "أداة متكاملة للنجاح",
+    "featuresSubtitle": "كل ما تحتاجه للتحضير الفعّال لامتحان التربية المدنية.",
+    "themesTitle": "المواضيع الخمسة للامتحان",
+    "themesSubtitle": "أتقن كل موضوع لتعظيم فرصك في النجاح.",
+    "installTitle": "ثبّت التطبيق على هاتفك",
+    "installSubtitle": "راجع بدون اتصال، مثل تطبيق حقيقي",
+    "install": "تثبيت",
+    "resourcesTitle": "الموارد الرسمية",
+    "resourcesSubtitle": "الروابط الأساسية لإجراءاتك الإدارية.",
+    "officialPrep": "التحضير الرسمي",
+    "officialPrepDesc": "منصة التدريب المدني الرسمية الحكومية.",
+    "examRegistration": "التسجيل في الامتحان",
+    "examRegistrationDesc": "سجّل عبر الإنترنت لتقديم امتحان التربية المدنية.",
+    "downloadPDF": "تحميل الاستبيان (PDF)",
+    "ctaTitle": "مستعد للبدء؟",
+    "ctaSubtitle": "أنشئ حسابك المجاني وابدأ التدريب الآن.",
+    "ctaDashboard": "الذهاب إلى لوحة التحكم",
+    "ctaRegister": "إنشاء حسابي"
+  },
+  "features": {
+    "trainingModes": "3 أوضاع للتدريب",
+    "trainingModesDesc": "يومي، حسب الموضوع أو امتحان تجريبي لتنويع تعلّمك.",
+    "officialThemes": "5 مواضيع رسمية",
+    "officialThemesDesc": "محتوى مبني على البرنامج الرسمي لامتحان التربية المدنية.",
+    "progressTracking": "تتبع التقدم",
+    "progressTrackingDesc": "تابع تطورك وحافظ على سلسلتك اليومية.",
+    "goal80": "هدف 80%",
+    "goal80Desc": "تدرّب حتى تصل إلى عتبة النجاح في الامتحان."
+  },
+  "themes": {
+    "principes": "مبادئ وقيم الجمهورية",
+    "institutions": "النظام المؤسسي والسياسي",
+    "droits": "الحقوق والواجبات",
+    "histoire": "التاريخ والجغرافيا والثقافة",
+    "vivre": "العيش في المجتمع الفرنسي"
+  },
+  "footer": {
+    "description": "تحضير مجاني لامتحان التربية المدنية الفرنسي، مبني على المحتوى الرسمي.",
+    "resources": "الموارد",
+    "officialPrep": "التحضير الرسمي",
+    "examRegistration": "التسجيل في الامتحان",
+    "contactLegal": "الاتصال والقانون",
+    "legalNotice": "الإشعار القانوني",
+    "privacyPolicy": "سياسة الخصوصية",
+    "copyright": "© {{year}} Le Test Civique — جميع الحقوق محفوظة"
+  },
+  "auth": {
+    "loginTitle": "تسجيل الدخول",
+    "loginSubtitle": "سجّل الدخول إلى حسابك",
+    "registerTitle": "إنشاء حساب",
+    "registerSubtitle": "ابدأ تحضيرك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "displayName": "اسم العرض",
+    "loginButton": "تسجيل الدخول",
+    "registerButton": "إنشاء حسابي",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟",
+    "createOne": "إنشاء حساب",
+    "loginHere": "تسجيل الدخول",
+    "emailSent": "تم إرسال بريد التحقق! تحقق من صندوق الوارد.",
+    "loginSuccess": "تم تسجيل الدخول بنجاح!"
+  },
+  "languageSelect": {
+    "title": "اختر لغتك",
+    "subtitle": "Choisissez votre langue / Select your language"
+  }
+}

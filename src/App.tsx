@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
 
+import LanguageSelectPage from '@/pages/LanguageSelectPage';
 import LandingPage from '@/pages/LandingPage';
 import LoginPage from '@/pages/LoginPage';
 import RegisterPage from '@/pages/RegisterPage';
@@ -56,10 +57,19 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function LanguageGate({ children }: { children: React.ReactNode }) {
+  const hasLang = localStorage.getItem('i18nextLng');
+  if (!hasLang) {
+    return <Navigate to="/" replace />;
+  }
+  return <>{children}</>;
+}
+
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<LanguageSelectPage />} />
+      <Route path="/home" element={<LanguageGate><LandingPage /></LanguageGate>} />
       <Route path="/install" element={<InstallPage />} />
       <Route
         path="/login"
