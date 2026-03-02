@@ -78,9 +78,13 @@ serve(async (req) => {
       status: 200,
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error("create-payment error:", error);
+    const message = error.message === "Already purchased"
+      ? "Already purchased"
+      : "Payment processing failed";
+    return new Response(JSON.stringify({ error: message }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 500,
+      status: error.message === "Already purchased" ? 400 : 500,
     });
   }
 });
