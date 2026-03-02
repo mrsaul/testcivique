@@ -25,7 +25,12 @@ serve(async (req) => {
     if (!user) throw new Error("User not authenticated");
 
     const { session_id } = await req.json();
-    if (!session_id) throw new Error("Missing session_id");
+    if (!session_id || typeof session_id !== "string" || !session_id.startsWith("cs_")) {
+      return new Response(JSON.stringify({ error: "Invalid session ID" }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 400,
+      });
+    }
 
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
       apiVersion: "2025-08-27.basil",
@@ -58,7 +63,8 @@ serve(async (req) => {
       status: 200,
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error("verify-payment error:", error);
+    return new Response(JSON.stringify({ error: "Verification failed" }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });
