@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
+import { useAdmin } from '@/hooks/useAdmin';
 import { LogOut, Menu, X, Globe } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -20,6 +21,7 @@ const languages = [
 
 export function Navbar() {
   const { user, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -44,7 +46,6 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-4">
             {user ? (
               <>
@@ -60,6 +61,11 @@ export function Navbar() {
                 <Link to="/blog">
                   <Button variant="ghost">{t('nav.blog')}</Button>
                 </Link>
+                {isAdmin && (
+                  <Link to="/admin/blog">
+                    <Button variant="ghost">Manage Blog</Button>
+                  </Link>
+                )}
                 <Button variant="outline" size="sm" onClick={handleSignOut}>
                   <LogOut className="w-4 h-4 mr-2" />
                   {t('nav.logout')}
@@ -79,7 +85,6 @@ export function Navbar() {
               </>
             )}
 
-            {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-1.5">
@@ -102,7 +107,6 @@ export function Navbar() {
             </DropdownMenu>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -132,10 +136,9 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <div className={cn(
           'md:hidden overflow-hidden transition-all duration-300',
-          mobileMenuOpen ? 'max-h-64 pb-4' : 'max-h-0'
+          mobileMenuOpen ? 'max-h-80 pb-4' : 'max-h-0'
         )}>
           <div className="flex flex-col gap-2">
             {user ? (
@@ -152,6 +155,11 @@ export function Navbar() {
                 <Link to="/blog" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="ghost" className="w-full justify-start">{t('nav.blog')}</Button>
                 </Link>
+                {isAdmin && (
+                  <Link to="/admin/blog" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="ghost" className="w-full justify-start">Manage Blog</Button>
+                  </Link>
+                )}
                 <Button variant="outline" onClick={handleSignOut} className="justify-start">
                   <LogOut className="w-4 h-4 mr-2" />
                   {t('nav.logout')}
