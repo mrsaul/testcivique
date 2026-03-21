@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 const languages = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
   { code: 'ar', label: 'العربية', flag: '🇸🇦' },
 ];
 

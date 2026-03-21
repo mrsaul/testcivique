@@ -16,6 +16,7 @@ import {
 const languages = [
   { code: 'fr', label: 'FR', flag: '🇫🇷' },
   { code: 'en', label: 'EN', flag: '🇬🇧' },
+  { code: 'es', label: 'ES', flag: '🇪🇸' },
   { code: 'ar', label: 'AR', flag: '🇸🇦' },
 ];
 
