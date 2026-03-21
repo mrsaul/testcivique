@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "themes": "Temas",
+    "mockExam": "Examen de prueba",
+    "blog": "Blog",
+    "login": "Iniciar sesión",
+    "register": "Comenzar",
+    "logout": "Cerrar sesión"
+  },
+  "landing": {
+    "badge": "Preparación para el Examen Cívico",
+    "title": "Aprueba tu",
+    "titleHighlight": "Examen Cívico",
+    "titleEnd": "en Francia",
+    "subtitle": "Practica eficazmente con preguntas basadas en el contenido oficial. Alcanza el <strong>80%</strong> requerido con un entrenamiento diario personalizado.",
+    "startFree": "Empezar gratis",
+    "hasAccount": "Ya tengo una cuenta",
+    "continuePractice": "Continuar practicando",
+    "featuresTitle": "Una herramienta completa para aprobar",
+    "featuresSubtitle": "Todo lo que necesitas para preparar eficazmente tu examen cívico.",
+    "themesTitle": "Los 5 temas del examen",
+    "themesSubtitle": "Domina cada tema para maximizar tus posibilidades de éxito.",
+    "installTitle": "Instala la app en tu teléfono",
+    "installSubtitle": "Estudia sin conexión, como una aplicación real",
+    "install": "Instalar",
+    "resourcesTitle": "Recursos Oficiales",
+    "resourcesSubtitle": "Los enlaces esenciales para tus trámites administrativos.",
+    "officialPrep": "Preparación Oficial",
+    "officialPrepDesc": "Plataforma oficial de formación cívica del gobierno.",
+    "examRegistration": "Inscripción al examen",
+    "examRegistrationDesc": "Inscríbete en línea para presentar tu examen cívico.",
+    "downloadPDF": "Descargar cuestionario (PDF)",
+    "ctaTitle": "¿Listo para empezar?",
+    "ctaSubtitle": "Crea tu cuenta gratuita y empieza a practicar ahora.",
+    "ctaDashboard": "Ir al panel",
+    "ctaRegister": "Crear mi cuenta"
+  },
+  "features": {
+    "trainingModes": "3 modos de entrenamiento",
+    "trainingModesDesc": "Diario, por tema o examen de prueba para variar tu aprendizaje.",
+    "officialThemes": "5 temas oficiales",
+    "officialThemesDesc": "Contenido basado en el programa oficial del examen cívico.",
+    "progressTracking": "Seguimiento de progreso",
+    "progressTrackingDesc": "Visualiza tu evolución y mantén tu racha diaria.",
+    "goal80": "Objetivo 80%",
+    "goal80Desc": "Practica hasta alcanzar el umbral de aprobación del examen."
+  },
+  "themes": {
+    "principes": "Principios y valores de la República",
+    "institutions": "Sistema institucional y político",
+    "droits": "Derechos y deberes",
+    "histoire": "Historia, geografía y cultura",
+    "vivre": "Vivir en la sociedad francesa"
+  },
+  "footer": {
+    "description": "Preparación gratuita para el examen cívico francés, basada en el contenido oficial.",
+    "resources": "Recursos",
+    "officialPrep": "Preparación Oficial",
+    "examRegistration": "Inscripción al examen",
+    "contactLegal": "Contacto y Legal",
+    "legalNotice": "Aviso legal",
+    "privacyPolicy": "Política de privacidad",
+    "copyright": "© {{year}} Le Test Civique — Todos los derechos reservados"
+  },
+  "auth": {
+    "loginTitle": "Iniciar sesión",
+    "loginSubtitle": "Accede a tu cuenta",
+    "registerTitle": "Crear cuenta",
+    "registerSubtitle": "Comienza tu preparación",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "displayName": "Nombre para mostrar",
+    "loginButton": "Iniciar sesión",
+    "registerButton": "Crear mi cuenta",
+    "noAccount": "¿No tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "createOne": "Crear una",
+    "loginHere": "Iniciar sesión",
+    "emailSent": "¡Correo de verificación enviado! Revisa tu bandeja de entrada.",
+    "loginSuccess": "¡Inicio de sesión exitoso!"
+  },
+  "languageSelect": {
+    "title": "Elige tu idioma",
+    "subtitle": "Choisissez votre langue / Select your language"
+  }
+}
