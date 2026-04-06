@@ -82,7 +82,12 @@ export default function DashboardPage() {
           <h2 className="text-xl font-display font-semibold">Progression par thème</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {(Object.keys(THEMES) as ThemeId[]).map((themeId) => (
-              <ThemeCard key={themeId} themeId={themeId} progress={0} />
+              <ThemeCard
+                key={themeId}
+                themeId={themeId}
+                progress={themeProgress?.[themeId]?.mastery ?? 0}
+                questionsAnswered={themeProgress?.[themeId]?.answered ?? 0}
+              />
             ))}
           </div>
         </div>
