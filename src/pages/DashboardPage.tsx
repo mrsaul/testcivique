@@ -6,6 +6,8 @@ import { ThemeCard } from '@/components/dashboard/ThemeCard';
 import { BadgesDisplay } from '@/components/badges/BadgesDisplay';
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth } from '@/hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { THEMES, ThemeId } from '@/lib/constants';
 import { Loader2 } from 'lucide-react';
 
