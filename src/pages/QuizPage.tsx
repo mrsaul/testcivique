@@ -227,6 +227,43 @@ export default function QuizPage() {
             .eq('user_id', user.id);
         }
 
+        // Update theme progress
+        if (theme) {
+          const { data: existing } = await supabase
+            .from('theme_progress')
+            .select('questions_answered, correct_answers')
+            .eq('user_id', user.id)
+            .eq('theme', theme)
+            .single();
+
+          const newAnswered = (existing?.questions_answered ?? 0) + questions.length;
+          const newCorrect = (existing?.correct_answers ?? 0) + quizState.correctCount;
+          const mastery = newAnswered > 0 ? Math.round((newCorrect / newAnswered) * 100) : 0;
+
+          if (existing) {
+            await supabase
+              .from('theme_progress')
+              .update({
+                questions_answered: newAnswered,
+                correct_answers: newCorrect,
+                mastery_level: mastery,
+                updated_at: new Date().toISOString(),
+              })
+              .eq('user_id', user.id)
+              .eq('theme', theme);
+          } else {
+            await supabase
+              .from('theme_progress')
+              .insert({
+                user_id: user.id,
+                theme: theme,
+                questions_answered: questions.length,
+                correct_answers: quizState.correctCount,
+                mastery_level: mastery,
+              });
+          }
+        }
+
         // Check and award badges
         await checkBadges({
           quizCompleted: true,
