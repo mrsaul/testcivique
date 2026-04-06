@@ -15,6 +15,24 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const { data: profile, isLoading } = useProfile();
 
+  const { data: themeProgress } = useQuery({
+    queryKey: ['theme-progress', user?.id],
+    queryFn: async () => {
+      if (!user) return {};
+      const { data, error } = await supabase
+        .from('theme_progress')
+        .select('theme, mastery_level, questions_answered')
+        .eq('user_id', user.id);
+      if (error) throw error;
+      const map: Record<string, { mastery: number; answered: number }> = {};
+      data?.forEach((row) => {
+        map[row.theme] = { mastery: row.mastery_level ?? 0, answered: row.questions_answered ?? 0 };
+      });
+      return map;
+    },
+    enabled: !!user,
+  });
+
   if (isLoading) {
     return (
       <Layout>
