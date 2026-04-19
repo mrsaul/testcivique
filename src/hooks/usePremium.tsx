@@ -49,7 +49,12 @@ export function useCreatePayment() {
     if (data?.error) throw new Error(data.error);
     
     if (data?.url) {
-      window.open(data.url, '_blank');
+      // Try opening in new tab first; fall back to same-tab redirect if blocked
+      // (mobile Safari and in-app browsers often block window.open after await).
+      const newWindow = window.open(data.url, '_blank');
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = data.url;
+      }
     }
     
     return data;
