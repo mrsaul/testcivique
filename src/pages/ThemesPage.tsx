@@ -1,10 +1,12 @@
 import { Layout } from '@/components/layout/Layout';
 import { ThemeCard } from '@/components/dashboard/ThemeCard';
+import { SEOHead } from '@/components/seo/SEOHead';
 import { THEMES, ThemeId } from '@/lib/constants';
 
 export default function ThemesPage() {
   return (
     <Layout>
+      <SEOHead title="Thèmes" description="Entraînement par thème : choisissez un sujet officiel pour vous préparer à l'examen civique." />
       <div className="container mx-auto px-4 py-8 space-y-8">
         <div className="space-y-1">
           <h1 className="text-2xl md:text-3xl font-display font-bold">

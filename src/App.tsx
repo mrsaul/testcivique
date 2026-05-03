@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
+import { SEOHead } from '@/components/seo/SEOHead';
 
 import LanguageSelectPage from '@/pages/LanguageSelectPage';
 import LandingPage from '@/pages/LandingPage';
@@ -69,6 +70,8 @@ function LanguageGate({ children }: { children: React.ReactNode }) {
 
 function AppRoutes() {
   return (
+    <>
+    <SEOHead />
     <Routes>
       <Route path="/" element={<LanguageSelectPage />} />
       <Route path="/home" element={<LanguageGate><LandingPage /></LanguageGate>} />
@@ -145,6 +148,7 @@ function AppRoutes() {
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   );
 }
 
