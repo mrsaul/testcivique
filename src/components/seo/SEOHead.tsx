@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { buildSchema } from '@/lib/seo-schema';
 
 interface SEOHeadProps {
   title?: string;
