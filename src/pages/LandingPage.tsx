@@ -168,6 +168,21 @@ export default function LandingPage() {
 
       <PricingSection />
 
+      {/* FAQ */}
+      <section className="py-16">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-3xl font-display font-bold mb-8 text-center">FAQ</h2>
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((f, i) => (
+              <AccordionItem key={i} value={`faq-${i}`}>
+                <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-gradient-primary">
         <div className="container mx-auto px-4 text-center">
