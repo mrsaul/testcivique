@@ -20,10 +20,9 @@ i18n.on('languageChanged', (lng) => {
   document.documentElement.lang = lng;
 });
 
-// Set initial dir
-if (savedLang === 'ar') {
-  document.documentElement.dir = 'rtl';
-  document.documentElement.lang = 'ar';
-}
+// Set initial dir & lang
+const initialLang = savedLang || 'fr';
+document.documentElement.dir = initialLang === 'ar' ? 'rtl' : 'ltr';
+document.documentElement.lang = initialLang;
 
 export default i18n;
