@@ -8,23 +8,14 @@ import { CheckCircle, Target, BookOpen, Trophy, ArrowRight, Flame, Smartphone, D
 import { generateQuestionsPDF } from '@/lib/generate-pdf';
 import { PricingSection } from '@/components/landing/PricingSection';
 import { useTranslation } from 'react-i18next';
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Test Civique",
-  "url": "https://testcivique.lovable.app",
-  "description": "Préparez votre examen civique français avec des quiz interactifs. 5 thèmes officiels, 150+ questions, suivi de progression.",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-  "inLanguage": "fr",
-  "audience": { "@type": "Audience", "audienceType": "Candidats à la nationalité française" },
-};
+import { getFaqs } from '@/lib/seo-schema';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function LandingPage() {
   const { user } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const faqs = getFaqs(i18n.language);
+
 
   const features = [
     { icon: Target, title: t('features.trainingModes'), description: t('features.trainingModesDesc') },
