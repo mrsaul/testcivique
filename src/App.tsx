@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
+import { SEOHead } from '@/components/seo/SEOHead';
 
 import LanguageSelectPage from '@/pages/LanguageSelectPage';
 import LandingPage from '@/pages/LandingPage';
