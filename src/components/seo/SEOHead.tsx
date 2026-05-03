@@ -80,6 +80,17 @@ export function SEOHead({ title, description, canonical, noIndex }: SEOHeadProps
     });
     // x-default points to French (primary)
     setLink('alternate', `${BASE_URL}${pathname}`, 'x-default');
+
+    // Inject JSON-LD structured data (WebApplication + FAQPage)
+    document.querySelectorAll('script[data-seo-schema]').forEach((el) => el.remove());
+    const schemas = buildSchema(currentLang, fullTitle, canonicalUrl);
+    schemas.forEach((schema, i) => {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-seo-schema', String(i));
+      script.text = JSON.stringify(schema);
+      document.head.appendChild(script);
+    });
   }, [fullTitle, desc, canonicalUrl, noIndex, currentLang, pathname]);
 
   return null;
