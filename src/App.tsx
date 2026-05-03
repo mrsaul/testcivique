@@ -148,6 +148,7 @@ function AppRoutes() {
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   );
 }
 
