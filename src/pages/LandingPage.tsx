@@ -31,9 +31,9 @@ export default function LandingPage() {
     <Layout>
       <SEOHead />
 
-
+      <article>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <header className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-5 pointer-events-none" />
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl mx-auto text-center space-y-6">
@@ -65,13 +65,20 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </header>
+
+      {/* Table of Contents */}
+      <div className="container mx-auto px-4 -mt-4 mb-8">
+        <div className="max-w-3xl mx-auto">
+          <TableOfContents title={t('toc.title', 'Sommaire')} />
+        </div>
+      </div>
 
       {/* Features */}
-      <section className="py-16 bg-muted/50">
+      <section id="features" aria-labelledby="features-title" className="py-16 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-display font-bold mb-4">{t('landing.featuresTitle')}</h2>
+            <h2 id="features-title" className="text-3xl font-display font-bold mb-4">{t('landing.featuresTitle')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">{t('landing.featuresSubtitle')}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -91,30 +98,32 @@ export default function LandingPage() {
       </section>
 
       {/* Themes */}
-      <section className="py-16">
+      <section id="themes" aria-labelledby="themes-title" className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-display font-bold mb-4">{t('landing.themesTitle')}</h2>
+              <h2 id="themes-title" className="text-3xl font-display font-bold mb-4">{t('landing.themesTitle')}</h2>
               <p className="text-muted-foreground">{t('landing.themesSubtitle')}</p>
             </div>
-            <div className="space-y-3">
+            <ol className="space-y-3">
               {themeKeys.map((key, index) => (
-                <div key={key} className="flex items-center gap-4 p-4 rounded-xl bg-card shadow-sm border">
+                <li key={key} className="flex items-center gap-4 p-4 rounded-xl bg-card shadow-sm border">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">{index + 1}</div>
-                  <span className="font-medium">{t(`themes.${key}`)}</span>
+                  <h3 className="font-medium text-base m-0">{t(`themes.${key}`)}</h3>
                   <CheckCircle className="w-5 h-5 text-success ml-auto" />
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </section>
 
-      <PricingSection />
+      <section id="pricing" aria-label="Pricing">
+        <PricingSection />
+      </section>
 
       {/* Install CTA */}
-      <section className="py-10 bg-muted/50">
+      <aside className="py-10 bg-muted/50">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-3 bg-card border rounded-2xl px-6 py-4 shadow-card">
             <Smartphone className="w-6 h-6 text-primary shrink-0" />
@@ -127,14 +136,14 @@ export default function LandingPage() {
             </Button>
           </div>
         </div>
-      </section>
+      </aside>
 
       {/* Resources */}
-      <section className="py-16">
+      <section id="resources" aria-labelledby="resources-title" className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-display font-bold mb-4">{t('landing.resourcesTitle')}</h2>
+              <h2 id="resources-title" className="text-3xl font-display font-bold mb-4">{t('landing.resourcesTitle')}</h2>
               <p className="text-muted-foreground">{t('landing.resourcesSubtitle')}</p>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -143,7 +152,7 @@ export default function LandingPage() {
                   <BookOpen className="w-5 h-5 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-semibold flex items-center gap-1">{t('landing.officialPrep')}<ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" /></p>
+                  <h3 className="font-semibold flex items-center gap-1 text-base m-0">{t('landing.officialPrep')}<ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" /></h3>
                   <p className="text-sm text-muted-foreground">{t('landing.officialPrepDesc')}</p>
                 </div>
               </a>
@@ -152,7 +161,7 @@ export default function LandingPage() {
                   <Target className="w-5 h-5 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-semibold flex items-center gap-1">{t('landing.examRegistration')}<ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" /></p>
+                  <h3 className="font-semibold flex items-center gap-1 text-base m-0">{t('landing.examRegistration')}<ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" /></h3>
                   <p className="text-sm text-muted-foreground">{t('landing.examRegistrationDesc')}</p>
                 </div>
               </a>
@@ -170,13 +179,15 @@ export default function LandingPage() {
       <PricingSection />
 
       {/* FAQ */}
-      <section className="py-16">
+      <section id="faq" aria-labelledby="faq-title" className="py-16">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-3xl font-display font-bold mb-8 text-center">FAQ</h2>
+          <h2 id="faq-title" className="text-3xl font-display font-bold mb-8 text-center">FAQ</h2>
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((f, i) => (
               <AccordionItem key={i} value={`faq-${i}`}>
-                <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
+                <AccordionTrigger className="text-left">
+                  <h3 className="text-base font-medium m-0">{f.q}</h3>
+                </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
               </AccordionItem>
             ))}
@@ -185,9 +196,9 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-gradient-primary">
+      <section id="get-started" aria-labelledby="cta-title" className="py-16 bg-gradient-primary">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-display font-bold text-white mb-4">{t('landing.ctaTitle')}</h2>
+          <h2 id="cta-title" className="text-3xl font-display font-bold text-white mb-4">{t('landing.ctaTitle')}</h2>
           <p className="text-white/80 mb-8 max-w-xl mx-auto">{t('landing.ctaSubtitle')}</p>
           <Button size="lg" variant="secondary" asChild className="text-lg px-8">
             <Link to={user ? '/dashboard' : '/register'}>
@@ -197,6 +208,7 @@ export default function LandingPage() {
           </Button>
         </div>
       </section>
+      </article>
     </Layout>
   );
 }
