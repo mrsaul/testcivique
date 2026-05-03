@@ -29,7 +29,7 @@ export default function LandingPage() {
   return (
     <Layout>
       <SEOHead />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
 
       {/* Hero */}
       <section className="relative overflow-hidden">
