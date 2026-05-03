@@ -1,38 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Home -->
   <url>
-    <loc>https://testcivique.lovable.app/</loc>
+    <loc>https://letestcivique.org/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Auth -->
   <url>
-    <loc>https://testcivique.lovable.app/login</loc>
+    <loc>https://letestcivique.org/login</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/login"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/login?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/login?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/login?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/login"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://testcivique.lovable.app/register</loc>
+    <loc>https://letestcivique.org/register</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/register"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/register?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/register?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/register?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/register"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Install / PWA -->
+  <url>
+    <loc>https://letestcivique.org/install</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/install"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/install?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/install?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/install?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/install"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Legal -->
+  <url>
+    <loc>https://letestcivique.org/mentions-legales</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://letestcivique.org/politique-confidentialite</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
+  <!-- Blog index -->
+  <url>
+    <loc>https://letestcivique.org/blog</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/blog?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/blog?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/blog?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/blog"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog posts -->
+  <url>
+    <loc>https://letestcivique.org/blog/reussir-le-test-civique-en-france-le-guide-complet-pour-votre-naturalisation</loc>
+    <lastmod>2026-03-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://testcivique.lovable.app/install</loc>
+    <loc>https://letestcivique.org/blog/conseils-test-civique-veille-jour-examen</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://testcivique.lovable.app/mentions-legales</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <loc>https://letestcivique.org/blog/systeme-institutionnel-francais-qui-fait-les-lois</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://testcivique.lovable.app/politique-confidentialite</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <loc>https://letestcivique.org/blog/laicite-france-test-civique</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://testcivique.lovable.app/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://letestcivique.org/blog/musee-armee-test-civique</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
+
 </urlset>
