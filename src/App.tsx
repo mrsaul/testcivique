@@ -70,6 +70,8 @@ function LanguageGate({ children }: { children: React.ReactNode }) {
 
 function AppRoutes() {
   return (
+    <>
+    <SEOHead />
     <Routes>
       <Route path="/" element={<LanguageSelectPage />} />
       <Route path="/home" element={<LanguageGate><LandingPage /></LanguageGate>} />
