@@ -5,6 +5,11 @@ import en from './locales/en.json';
 import ar from './locales/ar.json';
 import es from './locales/es.json';
 
+const SUPPORTED = ['fr', 'en', 'es', 'ar'];
+const urlLang = new URLSearchParams(window.location.search).get('lang');
+if (urlLang && SUPPORTED.includes(urlLang)) {
+  localStorage.setItem('i18nextLng', urlLang);
+}
 const savedLang = localStorage.getItem('i18nextLng') || '';
 
 i18n.use(initReactI18next).init({
