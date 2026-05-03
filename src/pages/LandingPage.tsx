@@ -10,6 +10,7 @@ import { PricingSection } from '@/components/landing/PricingSection';
 import { useTranslation } from 'react-i18next';
 import { getFaqs } from '@/lib/seo-schema';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { TableOfContents } from '@/components/seo/TableOfContents';
 
 export default function LandingPage() {
   const { user } = useAuth();
