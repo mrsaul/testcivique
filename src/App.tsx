@@ -4,59 +4,47 @@ import { Toaster } from 'sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
 import { SEOHead } from '@/components/seo/SEOHead';
+import { lazy, Suspense } from 'react';
 
-import LanguageSelectPage from '@/pages/LanguageSelectPage';
-import LandingPage from '@/pages/LandingPage';
-import LoginPage from '@/pages/LoginPage';
-import RegisterPage from '@/pages/RegisterPage';
-import ForgotPasswordPage from '@/pages/ForgotPasswordPage';
-import ResetPasswordPage from '@/pages/ResetPasswordPage';
-import DashboardPage from '@/pages/DashboardPage';
-import ThemesPage from '@/pages/ThemesPage';
-import QuizPage from '@/pages/QuizPage';
-import InstallPage from '@/pages/InstallPage';
-import MentionsLegalesPage from '@/pages/MentionsLegalesPage';
-import PolitiqueConfidentialitePage from '@/pages/PolitiqueConfidentialitePage';
-import PaymentSuccessPage from '@/pages/PaymentSuccessPage';
-import BlogPage from '@/pages/BlogPage';
-import BlogPostPage from '@/pages/BlogPostPage';
-import AdminBlogPage from '@/pages/AdminBlogPage';
+// Code-split route bundles to improve initial load (Core Web Vitals: LCP/TBT)
+const LanguageSelectPage = lazy(() => import('@/pages/LanguageSelectPage'));
+const LandingPage = lazy(() => import('@/pages/LandingPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const RegisterPage = lazy(() => import('@/pages/RegisterPage'));
+const ForgotPasswordPage = lazy(() => import('@/pages/ForgotPasswordPage'));
+const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage'));
+const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
+const ThemesPage = lazy(() => import('@/pages/ThemesPage'));
+const QuizPage = lazy(() => import('@/pages/QuizPage'));
+const InstallPage = lazy(() => import('@/pages/InstallPage'));
+const MentionsLegalesPage = lazy(() => import('@/pages/MentionsLegalesPage'));
+const PolitiqueConfidentialitePage = lazy(() => import('@/pages/PolitiqueConfidentialitePage'));
+const PaymentSuccessPage = lazy(() => import('@/pages/PaymentSuccessPage'));
+const BlogPage = lazy(() => import('@/pages/BlogPage'));
+const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
+const AdminBlogPage = lazy(() => import('@/pages/AdminBlogPage'));
 
 const queryClient = new QueryClient();
 
+function PageLoader() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
+
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
+  if (loading) return <PageLoader />;
+  if (!user) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }
 
 function PublicRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  if (user) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
+  if (loading) return <PageLoader />;
+  if (user) return <Navigate to="/dashboard" replace />;
   return <>{children}</>;
 }
 
@@ -72,6 +60,7 @@ function AppRoutes() {
   return (
     <>
     <SEOHead />
+    <Suspense fallback={<PageLoader />}>
     <Routes>
       <Route path="/" element={<LanguageSelectPage />} />
       <Route path="/home" element={<LanguageGate><LandingPage /></LanguageGate>} />
@@ -148,6 +137,7 @@ function AppRoutes() {
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </Suspense>
     </>
   );
 }

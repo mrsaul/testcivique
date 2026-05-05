@@ -27,13 +27,24 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Test Civique" />
     <meta name="twitter:image" content="/pwa-icon-512.png" />
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJDZGM5C7W"></script>
+    <!-- Google Analytics — loaded lazily after page is interactive to protect Core Web Vitals -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-CJDZGM5C7W');
+      function loadGA(){
+        if (window.__gaLoaded) return; window.__gaLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-CJDZGM5C7W';
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-CJDZGM5C7W', { anonymize_ip: true });
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGA, { timeout: 4000 });
+      } else {
+        window.addEventListener('load', function(){ setTimeout(loadGA, 2000); });
+      }
     </script>
   </head>
 
