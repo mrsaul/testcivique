@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
 import { SEOHead } from '@/components/seo/SEOHead';
+import { PrefetchManager } from '@/components/PrefetchManager';
 import { lazy, Suspense } from 'react';
 
 // Code-split route bundles to improve initial load (Core Web Vitals: LCP/TBT)
@@ -60,6 +61,7 @@ function AppRoutes() {
   return (
     <>
     <SEOHead />
+    <PrefetchManager />
     <Suspense fallback={<PageLoader />}>
     <Routes>
       <Route path="/" element={<LanguageSelectPage />} />
