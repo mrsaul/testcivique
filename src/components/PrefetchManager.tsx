@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { nextRoutesFor, prefetchRoutesIdle, prefetchRoute, keyForPath } from '@/lib/route-prefetch';
+import { recordNavigation } from '@/lib/prefetch-metrics';
 
 /**
  * Mounted once at app root. On every route change, schedules an idle
@@ -13,9 +14,11 @@ export function PrefetchManager() {
   const { pathname } = useLocation();
   const { user, loading } = useAuth();
 
-  // Idle prefetch likely-next routes when the path or auth state changes.
+  // On every route change, attribute hit/miss to any prior prefetch, then
+  // schedule idle prefetches for the next likely destinations.
   useEffect(() => {
     if (loading) return;
+    recordNavigation(keyForPath(pathname));
     const keys = nextRoutesFor(pathname, !!user);
     prefetchRoutesIdle(keys);
   }, [pathname, user, loading]);
