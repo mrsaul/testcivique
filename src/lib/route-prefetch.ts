@@ -48,6 +48,8 @@ export function nextRoutesFor(pathname: string, isAuthed: boolean): string[] {
   return [];
 }
 
+import { recordPrefetchStart, recordPrefetchEnd, type PrefetchTrigger } from './prefetch-metrics';
+
 const prefetched = new Set<string>();
 
 function shouldSkip(): boolean {
@@ -59,17 +61,23 @@ function shouldSkip(): boolean {
   return false;
 }
 
-export function prefetchRoute(key: string) {
+export function prefetchRoute(key: string, trigger: PrefetchTrigger = 'intent') {
   if (prefetched.has(key)) return;
   const importer = routeImporters[key];
   if (!importer) return;
   prefetched.add(key);
-  importer().catch(() => prefetched.delete(key));
+  recordPrefetchStart(key, trigger);
+  importer()
+    .then(() => recordPrefetchEnd(key, true))
+    .catch(() => {
+      prefetched.delete(key);
+      recordPrefetchEnd(key, false);
+    });
 }
 
 export function prefetchRoutesIdle(keys: string[]) {
   if (shouldSkip() || !keys.length) return;
-  const run = () => keys.forEach(prefetchRoute);
+  const run = () => keys.forEach((k) => prefetchRoute(k, 'idle'));
   const ric = (window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback;
   if (typeof ric === 'function') {
     ric(run, { timeout: 2000 });
