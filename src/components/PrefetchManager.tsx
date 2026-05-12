@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { nextRoutesFor, prefetchRoutesIdle, prefetchRoute, keyForPath } from '@/lib/route-prefetch';
 import { recordNavigation } from '@/lib/prefetch-metrics';
+import { startPrefetchSink, setPrefetchUserId } from '@/lib/prefetch-sink';
 
 /**
  * Mounted once at app root. On every route change, schedules an idle
