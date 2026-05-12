@@ -59,6 +59,51 @@ export type Database = {
         }
         Relationships: []
       }
+      prefetch_events: {
+        Row: {
+          created_at: string
+          duration_ms: number | null
+          effective_type: string | null
+          event_type: string
+          id: string
+          pathname: string | null
+          route_key: string
+          save_data: boolean | null
+          saved_ms: number | null
+          session_id: string | null
+          trigger: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          duration_ms?: number | null
+          effective_type?: string | null
+          event_type: string
+          id?: string
+          pathname?: string | null
+          route_key: string
+          save_data?: boolean | null
+          saved_ms?: number | null
+          session_id?: string | null
+          trigger?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number | null
+          effective_type?: string | null
+          event_type?: string
+          id?: string
+          pathname?: string | null
+          route_key?: string
+          save_data?: boolean | null
+          saved_ms?: number | null
+          session_id?: string | null
+          trigger?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           correct_answers: number | null
