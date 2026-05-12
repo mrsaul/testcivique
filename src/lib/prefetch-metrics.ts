@@ -32,6 +32,8 @@ interface MetricsSummary {
   records: PrefetchRecord[];
 }
 
+import { enqueuePrefetchEvent } from './prefetch-sink';
+
 const records = new Map<string, PrefetchRecord>();
 let hits = 0;
 let totalSavedMs = 0;
@@ -51,6 +53,7 @@ export function recordPrefetchStart(key: string, trigger: PrefetchTrigger) {
     resolved: false,
     consumed: false,
   });
+  enqueuePrefetchEvent({ event_type: 'issued', route_key: key, trigger });
 }
 
 export function recordPrefetchEnd(key: string, success: boolean) {
@@ -78,6 +81,13 @@ export function recordNavigation(key: string | null): number {
     route_key: key,
     trigger: rec.trigger,
     saved_ms: Math.round(rec.durationMs),
+  });
+  enqueuePrefetchEvent({
+    event_type: 'hit',
+    route_key: key,
+    trigger: rec.trigger,
+    saved_ms: Math.round(rec.durationMs),
+    duration_ms: Math.round(rec.durationMs),
   });
   if (import.meta.env.DEV) {
     console.info(

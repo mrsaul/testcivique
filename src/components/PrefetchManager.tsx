@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { nextRoutesFor, prefetchRoutesIdle, prefetchRoute, keyForPath } from '@/lib/route-prefetch';
 import { recordNavigation } from '@/lib/prefetch-metrics';
+import { startPrefetchSink, setPrefetchUserId } from '@/lib/prefetch-sink';
 
 /**
  * Mounted once at app root. On every route change, schedules an idle
@@ -13,6 +14,16 @@ import { recordNavigation } from '@/lib/prefetch-metrics';
 export function PrefetchManager() {
   const { pathname } = useLocation();
   const { user, loading } = useAuth();
+
+  // Start the server-side sink once (batches events + flushes on tab hide).
+  useEffect(() => {
+    startPrefetchSink();
+  }, []);
+
+  // Track which user the events belong to (null for anon visitors).
+  useEffect(() => {
+    setPrefetchUserId(user?.id ?? null);
+  }, [user]);
 
   // On every route change, attribute hit/miss to any prior prefetch, then
   // schedule idle prefetches for the next likely destinations.
