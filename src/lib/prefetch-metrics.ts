@@ -82,6 +82,13 @@ export function recordNavigation(key: string | null): number {
     trigger: rec.trigger,
     saved_ms: Math.round(rec.durationMs),
   });
+  enqueuePrefetchEvent({
+    event_type: 'hit',
+    route_key: key,
+    trigger: rec.trigger,
+    saved_ms: Math.round(rec.durationMs),
+    duration_ms: Math.round(rec.durationMs),
+  });
   if (import.meta.env.DEV) {
     console.info(
       `[prefetch] HIT ${key} via ${rec.trigger} — saved ~${Math.round(rec.durationMs)}ms`,
