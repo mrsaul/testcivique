@@ -47,7 +47,7 @@ const FAQS: Record<Lang, { q: string; a: string }[]> = {
   ],
 };
 
-export function buildSchema(lang: string, pageTitle: string, pageUrl: string) {
+export function buildSchema(lang: string, pageTitle: string, pageUrl: string, opts: { includeFaq?: boolean } = {}) {
   const l = (['fr', 'en', 'es', 'ar'] as const).includes(lang as Lang) ? (lang as Lang) : 'fr';
 
   const webApp = {
@@ -78,7 +78,7 @@ export function buildSchema(lang: string, pageTitle: string, pageUrl: string) {
     })),
   };
 
-  return [webApp, faq];
+  return opts.includeFaq ? [webApp, faq] : [webApp];
 }
 
 export function getFaqs(lang: string) {

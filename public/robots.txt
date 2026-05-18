@@ -5,4 +5,4 @@ Disallow: /themes
 Disallow: /quiz/
 Disallow: /admin/
 
-Sitemap: https://testcivique.lovable.app/sitemap.xml
+Sitemap: https://letestcivique.org/sitemap.xml

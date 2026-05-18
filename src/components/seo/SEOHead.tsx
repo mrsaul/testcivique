@@ -8,6 +8,7 @@ interface SEOHeadProps {
   description?: string;
   canonical?: string;
   noIndex?: boolean;
+  faq?: boolean;
 }
 
 const BASE_URL = 'https://www.letestcivique.org';
@@ -17,7 +18,7 @@ const DEFAULT_DESCRIPTION =
 
 const SUPPORTED_LANGS = ['fr', 'en', 'es', 'ar'] as const;
 
-export function SEOHead({ title, description, canonical, noIndex }: SEOHeadProps) {
+export function SEOHead({ title, description, canonical, noIndex, faq = false }: SEOHeadProps) {
   const { pathname } = useLocation();
   const { i18n } = useTranslation();
   const fullTitle = title ? `${title} | Test Civique` : DEFAULT_TITLE;
@@ -81,9 +82,9 @@ export function SEOHead({ title, description, canonical, noIndex }: SEOHeadProps
     // x-default points to French (primary)
     setLink('alternate', `${BASE_URL}${pathname}`, 'x-default');
 
-    // Inject JSON-LD structured data (WebApplication + FAQPage)
+    // Inject JSON-LD structured data (WebApplication always, FAQPage only when faq=true)
     document.querySelectorAll('script[data-seo-schema]').forEach((el) => el.remove());
-    const schemas = buildSchema(currentLang, fullTitle, canonicalUrl);
+    const schemas = buildSchema(currentLang, fullTitle, canonicalUrl, { includeFaq: faq });
     schemas.forEach((schema, i) => {
       const script = document.createElement('script');
       script.type = 'application/ld+json';
@@ -91,7 +92,7 @@ export function SEOHead({ title, description, canonical, noIndex }: SEOHeadProps
       script.text = JSON.stringify(schema);
       document.head.appendChild(script);
     });
-  }, [fullTitle, desc, canonicalUrl, noIndex, currentLang, pathname]);
+  }, [fullTitle, desc, canonicalUrl, noIndex, currentLang, pathname, faq]);
 
   return null;
 }

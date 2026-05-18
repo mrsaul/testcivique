@@ -29,7 +29,7 @@ export default function LandingPage() {
 
   return (
     <Layout>
-      <SEOHead />
+      <SEOHead faq />
 
       <article>
       {/* Hero */}
