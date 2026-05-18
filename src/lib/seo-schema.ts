@@ -78,7 +78,7 @@ export function buildSchema(lang: string, pageTitle: string, pageUrl: string, op
     })),
   };
 
-  return [webApp, faq];
+  return opts.includeFaq ? [webApp, faq] : [webApp];
 }
 
 export function getFaqs(lang: string) {
