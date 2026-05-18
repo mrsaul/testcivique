@@ -1,0 +1,18 @@
+# Le Test Civique
+
+> Préparation en ligne à l'examen civique français requis pour la naturalisation : quiz interactifs, 5 thèmes officiels, plus de 300 questions, suivi de progression et examens blancs chronométrés.
+
+Le Test Civique est une application web et PWA (FR, EN, ES, AR pour l'interface ; contenu des quiz exclusivement en français) qui aide les candidats à la nationalité française à se préparer à l'examen civique. Modèle freemium : 5 questions gratuites, puis accès illimité à vie pour 5 €.
+
+## Pages
+
+- [Accueil](/): Présentation de l'application, fonctionnalités, témoignages, tarifs et FAQ sur l'examen civique français.
+- [Blog](/blog): Articles de fond sur l'examen civique, les institutions, la laïcité, l'histoire de France et conseils de préparation.
+- [Installer l'application](/install): Guide pour installer la PWA Test Civique sur iPhone, iPad et Android.
+- [Mentions légales](/mentions-legales): Mentions légales de l'éditeur du site.
+- [Politique de confidentialité](/politique-confidentialite): Politique de confidentialité et conformité RGPD.
+
+## Optional
+
+- [Connexion](/login): Page de connexion au compte utilisateur.
+- [Créer un compte](/register): Inscription gratuite pour commencer la préparation.
