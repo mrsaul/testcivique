@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
+import { SEOHead } from '@/components/seo/SEOHead';
 
 const languages = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
@@ -21,6 +22,11 @@ export default function LanguageSelectPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4">
+      <SEOHead
+        title="Choisissez votre langue"
+        description="Sélectionnez la langue de l'interface Test Civique : français, anglais, espagnol ou arabe."
+        noIndex
+      />
       <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center mb-6">
         <span className="text-white font-bold text-lg">🇫🇷</span>
       </div>

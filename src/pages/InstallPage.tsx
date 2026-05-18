@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/seo/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Download, Smartphone, Share, PlusSquare, MoreVertical, CheckCircle } from 'lucide-react';
@@ -53,6 +54,10 @@ export default function InstallPage() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Installer l'app sur iPhone et Android"
+        description="Installez la PWA Test Civique sur votre iPhone, iPad ou Android pour réviser l'examen civique français hors-ligne, en plein écran."
+      />
       <div className="container mx-auto px-4 py-12 max-w-2xl">
         <div className="text-center mb-10 space-y-4">
           <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
