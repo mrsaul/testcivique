@@ -287,6 +287,18 @@ export default function QuizPage() {
     return config.name;
   };
 
+  const seoTitle = (() => {
+    if (theme && THEMES[theme]) return `Quiz – ${THEMES[theme].name}`;
+    if (sessionType === 'mock_exam') return 'Examen blanc – Test Civique';
+    if (sessionType === 'daily') return 'Entraînement quotidien – Test Civique';
+    return getTitle();
+  })();
+  const seoDescription = theme && THEMES[theme]
+    ? `Entraînez-vous sur le thème ${THEMES[theme].name} : ${THEMES[theme].description}`
+    : sessionType === 'mock_exam'
+      ? `Examen blanc chronométré de ${EXAM_CONFIG.mockExamDuration} minutes pour simuler l'examen civique français.`
+      : "Pratiquez quotidiennement pour préparer l'examen civique français.";
+
   // Show paywall if free limit reached
   if (!canAccess) {
     return (

@@ -29,7 +29,12 @@ export default function LandingPage() {
 
   return (
     <Layout>
-      <SEOHead faq />
+      <SEOHead
+        faq
+        title="Préparation Examen Civique – Quiz & 300+ questions"
+        description="Réussissez l'examen civique français : 5 thèmes officiels, 300+ questions, quiz interactifs, suivi de progression et examens blancs chronométrés."
+      />
+
 
       <article>
       {/* Hero */}

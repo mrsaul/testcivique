@@ -50,6 +50,26 @@ const FAQS: Record<Lang, { q: string; a: string }[]> = {
 export function buildSchema(lang: string, pageTitle: string, pageUrl: string, opts: { includeFaq?: boolean } = {}) {
   const l = (['fr', 'en', 'es', 'ar'] as const).includes(lang as Lang) ? (lang as Lang) : 'fr';
 
+  const organization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": APP_NAME,
+    "url": APP_URL,
+    "logo": `${APP_URL}/pwa-icon-512.png`,
+    "email": "contact@letestcivique.org",
+    "sameAs": [APP_URL],
+  };
+
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": APP_NAME,
+    "url": APP_URL,
+    "inLanguage": l,
+    "description": APP_DESC[l],
+    "publisher": { "@type": "Organization", "name": APP_NAME, "url": APP_URL },
+  };
+
   const webApp = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -78,7 +98,8 @@ export function buildSchema(lang: string, pageTitle: string, pageUrl: string, op
     })),
   };
 
-  return opts.includeFaq ? [webApp, faq] : [webApp];
+  const base = [organization, website, webApp];
+  return opts.includeFaq ? [...base, faq] : base;
 }
 
 export function getFaqs(lang: string) {

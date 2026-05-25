@@ -48,8 +48,16 @@ export default function BlogPostPage() {
     "description": post.meta_description || post.excerpt || '',
     "datePublished": post.published_at,
     "dateModified": post.updated_at,
-    "url": `https://testcivique.lovable.app/blog/${post.slug}`,
+    "url": `https://www.letestcivique.org/blog/${post.slug}`,
     "inLanguage": "fr",
+    "author": { "@type": "Organization", "name": "Test Civique", "url": "https://www.letestcivique.org" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Test Civique",
+      "url": "https://www.letestcivique.org",
+      "logo": { "@type": "ImageObject", "url": "https://www.letestcivique.org/pwa-icon-512.png" },
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://www.letestcivique.org/blog/${post.slug}` },
     ...(post.cover_image_url ? { "image": post.cover_image_url } : {}),
   };
 
