@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import { useCheckAndAwardBadges } from '@/hooks/useBadges';
 import { useCanAccessQuiz } from '@/hooks/usePremium';
 import { PaywallCard } from '@/components/payment/PaywallCard';
+import { SEOHead } from '@/components/seo/SEOHead';
 
 type SessionType = 'daily' | 'theme' | 'mock_exam';
 
