@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import { useCheckAndAwardBadges } from '@/hooks/useBadges';
 import { useCanAccessQuiz } from '@/hooks/usePremium';
 import { PaywallCard } from '@/components/payment/PaywallCard';
+import { SEOHead } from '@/components/seo/SEOHead';
 
 type SessionType = 'daily' | 'theme' | 'mock_exam';
 
@@ -287,10 +288,23 @@ export default function QuizPage() {
     return config.name;
   };
 
+  const seoTitle = (() => {
+    if (theme && THEMES[theme]) return `Quiz – ${THEMES[theme].name}`;
+    if (sessionType === 'mock_exam') return 'Examen blanc – Test Civique';
+    if (sessionType === 'daily') return 'Entraînement quotidien – Test Civique';
+    return getTitle();
+  })();
+  const seoDescription = theme && THEMES[theme]
+    ? `Entraînez-vous sur le thème ${THEMES[theme].name} : ${THEMES[theme].description}`
+    : sessionType === 'mock_exam'
+      ? `Examen blanc chronométré de ${EXAM_CONFIG.mockExamDuration} minutes pour simuler l'examen civique français.`
+      : "Pratiquez quotidiennement pour préparer l'examen civique français.";
+
   // Show paywall if free limit reached
   if (!canAccess) {
     return (
       <Layout>
+        <SEOHead title={seoTitle} description={seoDescription} noIndex />
         <div className="container mx-auto px-4 py-8 max-w-md">
           <div className="space-y-6">
             <Button variant="outline" onClick={() => navigate(-1)} className="w-full">
@@ -308,6 +322,7 @@ export default function QuizPage() {
   if (showSetup && !isReviewMode) {
     return (
       <Layout>
+        <SEOHead title={seoTitle} description={seoDescription} noIndex />
         <div className="container mx-auto px-4 py-8 max-w-md">
           <div className="space-y-6">
             <div className="text-center">
@@ -361,6 +376,7 @@ export default function QuizPage() {
   if (loading) {
     return (
       <Layout>
+        <SEOHead title={seoTitle} description={seoDescription} noIndex />
         <div className="flex items-center justify-center min-h-[50vh]">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
@@ -371,6 +387,7 @@ export default function QuizPage() {
   if (questions.length === 0) {
     return (
       <Layout>
+        <SEOHead title={seoTitle} description={seoDescription} noIndex />
         <div className="container mx-auto px-4 py-8 text-center">
           <h2 className="text-xl font-semibold mb-4">Aucune question disponible</h2>
           <Button onClick={() => navigate('/dashboard')}>
@@ -383,6 +400,7 @@ export default function QuizPage() {
 
   return (
     <Layout>
+      <SEOHead title={seoTitle} description={seoDescription} noIndex />
       <div className="container mx-auto px-4 py-8 max-w-2xl">
         {/* Header */}
         <div className="flex items-center justify-between gap-4 mb-6">
