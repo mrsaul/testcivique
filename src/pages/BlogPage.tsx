@@ -46,7 +46,7 @@ export default function BlogPage() {
             ) : (
               <div className="space-y-6">
                 {posts.map((post) => (
-                  <Link key={post.id} to={`/blog/${post.slug}`}>
+                  <Link key={post.id} to={`/blog/${post.slug.replace(/^\/+|\/+$/g, '')}`}>
                     <Card className="hover:shadow-md transition-shadow border bg-card">
                       <CardContent className="p-6">
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
