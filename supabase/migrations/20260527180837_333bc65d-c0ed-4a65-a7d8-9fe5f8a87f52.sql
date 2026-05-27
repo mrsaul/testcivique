@@ -1,0 +1,1 @@
+UPDATE public.blog_posts SET slug = trim(both '/' from slug) WHERE slug LIKE '/%' OR slug LIKE '%/';
