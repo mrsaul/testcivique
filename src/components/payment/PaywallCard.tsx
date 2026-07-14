@@ -4,6 +4,7 @@ import { useCreatePayment, FREE_QUESTION_LIMIT } from '@/hooks/usePremium';
 import { Lock, CheckCircle, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { RedeemCodeCard } from './RedeemCodeCard';
 
 export function PaywallCard() {
   const { createPayment } = useCreatePayment();
