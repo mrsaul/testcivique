@@ -124,4 +124,56 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Theme landing pages (SEO long-tail) -->
+  <url>
+    <loc>https://letestcivique.org/theme/principes_valeurs</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/theme/principes_valeurs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/theme/principes_valeurs?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/theme/principes_valeurs?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/theme/principes_valeurs?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/theme/principes_valeurs"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://letestcivique.org/theme/systeme_institutionnel</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/theme/systeme_institutionnel"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/theme/systeme_institutionnel?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/theme/systeme_institutionnel?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/theme/systeme_institutionnel?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/theme/systeme_institutionnel"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://letestcivique.org/theme/droits_devoirs</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/theme/droits_devoirs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/theme/droits_devoirs?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/theme/droits_devoirs?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/theme/droits_devoirs?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/theme/droits_devoirs"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://letestcivique.org/theme/histoire_geographie</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/theme/histoire_geographie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/theme/histoire_geographie?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/theme/histoire_geographie?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/theme/histoire_geographie?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/theme/histoire_geographie"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://letestcivique.org/theme/vivre_societe</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/theme/vivre_societe"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/theme/vivre_societe?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/theme/vivre_societe?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/theme/vivre_societe?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/theme/vivre_societe"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
 </urlset>

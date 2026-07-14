@@ -25,7 +25,13 @@ export default function LandingPage() {
     { icon: Trophy, title: t('features.goal80'), description: t('features.goal80Desc') },
   ];
 
-  const themeKeys = ['principes', 'institutions', 'droits', 'histoire', 'vivre'] as const;
+  const themeKeys = [
+    { key: 'principes', slug: 'principes_valeurs' },
+    { key: 'institutions', slug: 'systeme_institutionnel' },
+    { key: 'droits', slug: 'droits_devoirs' },
+    { key: 'histoire', slug: 'histoire_geographie' },
+    { key: 'vivre', slug: 'vivre_societe' },
+  ] as const;
 
   return (
     <Layout>
@@ -111,11 +117,16 @@ export default function LandingPage() {
               <p className="text-muted-foreground">{t('landing.themesSubtitle')}</p>
             </div>
             <ol className="space-y-3">
-              {themeKeys.map((key, index) => (
-                <li key={key} className="flex items-center gap-4 p-4 rounded-xl bg-card shadow-sm border">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">{index + 1}</div>
-                  <h3 className="font-medium text-base m-0">{t(`themes.${key}`)}</h3>
-                  <CheckCircle className="w-5 h-5 text-success ml-auto" />
+              {themeKeys.map(({ key, slug }, index) => (
+                <li key={key}>
+                  <Link
+                    to={`/theme/${slug}`}
+                    className="flex items-center gap-4 p-4 rounded-xl bg-card shadow-sm border hover:border-primary hover:shadow-md transition-all"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center font-bold text-primary">{index + 1}</div>
+                    <h3 className="font-medium text-base m-0">{t(`themes.${key}`)}</h3>
+                    <CheckCircle className="w-5 h-5 text-success ml-auto" />
+                  </Link>
                 </li>
               ))}
             </ol>

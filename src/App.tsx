@@ -24,6 +24,7 @@ const PaymentSuccessPage = lazy(() => import('@/pages/PaymentSuccessPage'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
 const AdminBlogPage = lazy(() => import('@/pages/AdminBlogPage'));
+const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
 
 const queryClient = new QueryClient();
 
@@ -135,6 +136,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/theme/:themeId" element={<ThemeLandingPage />} />
       <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
