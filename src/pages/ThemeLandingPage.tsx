@@ -1,8 +1,6 @@
-import { useMemo } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { SEOHead } from '@/components/seo/SEOHead';
 import { TableOfContents } from '@/components/seo/TableOfContents';
