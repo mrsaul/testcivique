@@ -25,7 +25,13 @@ export default function LandingPage() {
     { icon: Trophy, title: t('features.goal80'), description: t('features.goal80Desc') },
   ];
 
-  const themeKeys = ['principes', 'institutions', 'droits', 'histoire', 'vivre'] as const;
+  const themeKeys = [
+    { key: 'principes', slug: 'principes_valeurs' },
+    { key: 'institutions', slug: 'systeme_institutionnel' },
+    { key: 'droits', slug: 'droits_devoirs' },
+    { key: 'histoire', slug: 'histoire_geographie' },
+    { key: 'vivre', slug: 'vivre_societe' },
+  ] as const;
 
   return (
     <Layout>
