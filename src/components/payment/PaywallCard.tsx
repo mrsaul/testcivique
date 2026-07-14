@@ -76,6 +76,9 @@ export function PaywallCard() {
           Paiement sécurisé par Stripe. Pas d'abonnement.
         </p>
       </CardContent>
+      <CardContent className="pt-0">
+        <RedeemCodeCard />
+      </CardContent>
     </Card>
   );
 }
