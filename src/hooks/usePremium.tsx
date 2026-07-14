@@ -11,17 +11,22 @@ export function usePremiumStatus() {
   return useQuery({
     queryKey: ['premium-status', user?.id],
     queryFn: async () => {
-      if (!user) return { hasPremium: false, questionsAnswered: 0 };
+      if (!user) return { hasPremium: false, questionsAnswered: 0, expiresAt: null as string | null };
 
       const { data: profile } = await supabase
         .from('profiles')
-        .select('has_premium, total_questions_answered')
+        .select('has_premium, total_questions_answered, premium_expires_at')
         .eq('user_id', user.id)
         .single();
 
+      const expiresAt = profile?.premium_expires_at ?? null;
+      const notExpired = !expiresAt || new Date(expiresAt) > new Date();
+      const hasPremium = (profile?.has_premium ?? false) && notExpired;
+
       return {
-        hasPremium: profile?.has_premium ?? false,
+        hasPremium,
         questionsAnswered: profile?.total_questions_answered ?? 0,
+        expiresAt,
       };
     },
     enabled: !!user,
