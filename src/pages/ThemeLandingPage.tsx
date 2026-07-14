@@ -227,6 +227,12 @@ export default function ThemeLandingPage() {
                 </Link>
               ))}
           </div>
+          <div className="pt-2">
+            <Link to="/themes-guide" className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1">
+              Voir la page récapitulative des 5 thèmes
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </nav>
       </article>
     </Layout>
