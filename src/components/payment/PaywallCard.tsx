@@ -4,6 +4,7 @@ import { useCreatePayment, FREE_QUESTION_LIMIT } from '@/hooks/usePremium';
 import { Lock, CheckCircle, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { RedeemCodeCard } from './RedeemCodeCard';
 
 export function PaywallCard() {
   const { createPayment } = useCreatePayment();
@@ -74,6 +75,9 @@ export function PaywallCard() {
         <p className="text-xs text-center text-muted-foreground">
           Paiement sécurisé par Stripe. Pas d'abonnement.
         </p>
+      </CardContent>
+      <CardContent className="pt-0">
+        <RedeemCodeCard />
       </CardContent>
     </Card>
   );

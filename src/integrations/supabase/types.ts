@@ -59,6 +59,80 @@ export type Database = {
         }
         Relationships: []
       }
+      code_redemptions: {
+        Row: {
+          code_id: string
+          granted_until: string
+          id: string
+          redeemed_at: string
+          user_id: string
+        }
+        Insert: {
+          code_id: string
+          granted_until: string
+          id?: string
+          redeemed_at?: string
+          user_id: string
+        }
+        Update: {
+          code_id?: string
+          granted_until?: string
+          id?: string
+          redeemed_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "code_redemptions_code_id_fkey"
+            columns: ["code_id"]
+            isOneToOne: false
+            referencedRelation: "partner_codes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_codes: {
+        Row: {
+          code: string
+          created_at: string
+          duration_months: number
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          max_uses: number | null
+          notes: string | null
+          partner_name: string
+          updated_at: string
+          used_count: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          duration_months?: number
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_uses?: number | null
+          notes?: string | null
+          partner_name: string
+          updated_at?: string
+          used_count?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          duration_months?: number
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_uses?: number | null
+          notes?: string | null
+          partner_name?: string
+          updated_at?: string
+          used_count?: number
+        }
+        Relationships: []
+      }
       prefetch_events: {
         Row: {
           created_at: string
@@ -112,6 +186,7 @@ export type Database = {
           has_premium: boolean
           id: string
           last_practice_date: string | null
+          premium_expires_at: string | null
           streak_days: number | null
           total_questions_answered: number | null
           updated_at: string | null
@@ -124,6 +199,7 @@ export type Database = {
           has_premium?: boolean
           id?: string
           last_practice_date?: string | null
+          premium_expires_at?: string | null
           streak_days?: number | null
           total_questions_answered?: number | null
           updated_at?: string | null
@@ -136,6 +212,7 @@ export type Database = {
           has_premium?: boolean
           id?: string
           last_practice_date?: string | null
+          premium_expires_at?: string | null
           streak_days?: number | null
           total_questions_answered?: number | null
           updated_at?: string | null
