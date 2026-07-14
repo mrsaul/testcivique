@@ -124,6 +124,18 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Themes index page -->
+  <url>
+    <loc>https://letestcivique.org/themes-guide</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/themes-guide"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/themes-guide?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/themes-guide?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/themes-guide?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/themes-guide"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Theme landing pages (SEO long-tail) -->
   <url>
     <loc>https://letestcivique.org/theme/principes_valeurs</loc>
