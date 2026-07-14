@@ -25,6 +25,7 @@ const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
 const AdminBlogPage = lazy(() => import('@/pages/AdminBlogPage'));
 const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
+const ThemesIndexPage = lazy(() => import('@/pages/ThemesIndexPage'));
 
 const queryClient = new QueryClient();
 
