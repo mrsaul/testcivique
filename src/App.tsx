@@ -137,6 +137,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/themes-guide" element={<ThemesIndexPage />} />
       <Route path="/theme/:themeId" element={<ThemeLandingPage />} />
       <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
