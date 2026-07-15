@@ -157,8 +157,8 @@ export function Navbar() {
                   <Button variant="ghost" className="w-full justify-start">{t('nav.blog')}</Button>
                 </Link>
                 {isAdmin && (
-                  <Link to="/admin/blog" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start">Manage Blog</Button>
+                  <Link to="/admin" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="ghost" className="w-full justify-start">Admin</Button>
                   </Link>
                 )}
                 <Button variant="outline" onClick={handleSignOut} className="justify-start">
