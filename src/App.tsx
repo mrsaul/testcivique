@@ -25,6 +25,7 @@ const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
 const AdminBlogPage = lazy(() => import('@/pages/AdminBlogPage'));
 const AdminPartnerCodesPage = lazy(() => import('@/pages/AdminPartnerCodesPage'));
+const AdminSettingsPage = lazy(() => import('@/pages/AdminSettingsPage'));
 const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
 const ThemesIndexPage = lazy(() => import('@/pages/ThemesIndexPage'));
 
@@ -135,6 +136,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminBlogPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminSettingsPage />
           </ProtectedRoute>
         }
       />
