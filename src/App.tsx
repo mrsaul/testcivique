@@ -28,6 +28,7 @@ const AdminPartnerCodesPage = lazy(() => import('@/pages/AdminPartnerCodesPage')
 const AdminSettingsPage = lazy(() => import('@/pages/AdminSettingsPage'));
 const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
 const ThemesIndexPage = lazy(() => import('@/pages/ThemesIndexPage'));
+const UnsubscribePage = lazy(() => import('@/pages/UnsubscribePage'));
 
 const queryClient = new QueryClient();
 
@@ -159,6 +160,7 @@ function AppRoutes() {
       <Route path="/theme/:themeId" element={<ThemeLandingPage />} />
       <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
+      <Route path="/unsubscribe" element={<UnsubscribePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
     </Suspense>
