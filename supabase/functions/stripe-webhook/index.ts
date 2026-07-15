@@ -120,6 +120,78 @@ serve(async (req) => {
         .eq("user_id", userId);
 
       log("premium activated", { userId, session_id: session.id });
+
+      // Send welcome premium email (idempotent via session id).
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("email, first_name, full_name")
+          .eq("user_id", userId)
+          .maybeSingle();
+
+        const recipient =
+          profile?.email ||
+          session.customer_details?.email ||
+          session.customer_email ||
+          null;
+
+        if (recipient) {
+          const amount = session.amount_total ?? 500;
+          const currency = (session.currency ?? "eur").toUpperCase();
+          const amountLabel = new Intl.NumberFormat("fr-FR", {
+            style: "currency",
+            currency,
+          }).format(amount / 100);
+
+          // Try to grab receipt_url from the underlying charge.
+          let receiptUrl: string | null = null;
+          try {
+            const piId =
+              typeof session.payment_intent === "string"
+                ? session.payment_intent
+                : session.payment_intent?.id ?? null;
+            if (piId) {
+              const pi = await stripe.paymentIntents.retrieve(piId, {
+                expand: ["latest_charge"],
+              });
+              const charge = pi.latest_charge as Stripe.Charge | null;
+              receiptUrl = charge?.receipt_url ?? null;
+            }
+          } catch (e) {
+            log("receipt url lookup failed", { message: (e as Error).message });
+          }
+
+          const firstName =
+            profile?.first_name ||
+            (profile?.full_name ? profile.full_name.split(" ")[0] : null) ||
+            session.customer_details?.name?.split(" ")[0] ||
+            null;
+
+          const { error: mailErr } = await supabase.functions.invoke(
+            "send-transactional-email",
+            {
+              body: {
+                templateName: "premium-welcome",
+                recipientEmail: recipient,
+                idempotencyKey: `premium-welcome-${session.id}`,
+                templateData: {
+                  firstName,
+                  amountLabel,
+                  receiptUrl,
+                  examUrl: "https://letestcivique.org/quiz/mock-exam",
+                },
+              },
+            },
+          );
+          if (mailErr) {
+            log("welcome email invoke failed", { message: mailErr.message });
+          } else {
+            log("welcome email queued", { recipient });
+          }
+        }
+      } catch (e) {
+        log("welcome email error", { message: (e as Error).message });
+      }
     } else {
       log("ignored event type", { type: event.type });
     }
