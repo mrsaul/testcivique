@@ -140,6 +140,14 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminSettingsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/admin/codes"
         element={
           <ProtectedRoute>
