@@ -1,6 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { SEOHead } from '@/components/seo/SEOHead';
 import { StatsCards } from '@/components/dashboard/StatsCards';
+import { ComeBackRecap } from '@/components/dashboard/ComeBackRecap';
 import { TrainingModes } from '@/components/dashboard/TrainingModes';
 import { ThemeCard } from '@/components/dashboard/ThemeCard';
 import { BadgesDisplay } from '@/components/badges/BadgesDisplay';
@@ -62,6 +63,9 @@ export default function DashboardPage() {
             Continuez votre préparation à l'examen civique.
           </p>
         </div>
+
+        {/* Come-back recap */}
+        <ComeBackRecap />
 
         {/* Stats */}
         <StatsCards
