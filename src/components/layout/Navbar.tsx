@@ -63,8 +63,8 @@ export function Navbar() {
                   <Button variant="ghost">{t('nav.blog')}</Button>
                 </Link>
                 {isAdmin && (
-                  <Link to="/admin/blog">
-                    <Button variant="ghost">Manage Blog</Button>
+                  <Link to="/admin">
+                    <Button variant="ghost">Admin</Button>
                   </Link>
                 )}
                 <Button variant="outline" size="sm" onClick={handleSignOut}>
