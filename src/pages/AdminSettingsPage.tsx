@@ -26,6 +26,7 @@ const sections = [
     title: 'Emails envoyés',
     description: 'Historique des envois (succès/échec), timestamps et renvoi manuel.',
     cta: 'Ouvrir',
+  },
   {
     to: '/admin/users',
     icon: ShieldCheck,
