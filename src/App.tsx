@@ -157,6 +157,15 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/admin/emails"
+        element={
+          <ProtectedRoute>
+            <AdminEmailsPage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="/themes-guide" element={<ThemesIndexPage />} />
       <Route path="/theme/:themeId" element={<ThemeLandingPage />} />
       <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
