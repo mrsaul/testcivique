@@ -1,7 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /dashboard
-Disallow: /themes
+Disallow: /themes$
+Allow: /themes-guide
+Allow: /theme/
 Disallow: /quiz/
 Disallow: /admin/
 
