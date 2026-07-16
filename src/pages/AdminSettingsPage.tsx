@@ -3,7 +3,7 @@ import { useAdmin } from '@/hooks/useAdmin';
 import { Layout } from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileText, Ticket, BarChart3, Users, ExternalLink } from 'lucide-react';
+import { FileText, Ticket, BarChart3, Users, ExternalLink, Mail } from 'lucide-react';
 
 const sections = [
   {
@@ -18,6 +18,13 @@ const sections = [
     icon: Ticket,
     title: 'Codes partenaires',
     description: 'Générer et gérer les codes premium pour associations, mairies et centres OFII.',
+    cta: 'Ouvrir',
+  },
+  {
+    to: '/admin/emails',
+    icon: Mail,
+    title: 'Emails envoyés',
+    description: 'Historique des envois (succès/échec), timestamps et renvoi manuel.',
     cta: 'Ouvrir',
   },
 ];
