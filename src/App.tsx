@@ -27,6 +27,7 @@ const AdminBlogPage = lazy(() => import('@/pages/AdminBlogPage'));
 const AdminPartnerCodesPage = lazy(() => import('@/pages/AdminPartnerCodesPage'));
 const AdminSettingsPage = lazy(() => import('@/pages/AdminSettingsPage'));
 const AdminEmailsPage = lazy(() => import('@/pages/AdminEmailsPage'));
+const AdminUsersPage = lazy(() => import('@/pages/AdminUsersPage'));
 const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
 const ThemesIndexPage = lazy(() => import('@/pages/ThemesIndexPage'));
 const UnsubscribePage = lazy(() => import('@/pages/UnsubscribePage'));
