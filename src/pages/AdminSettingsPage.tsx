@@ -3,7 +3,7 @@ import { useAdmin } from '@/hooks/useAdmin';
 import { Layout } from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileText, Ticket, BarChart3, Users, ExternalLink, Mail } from 'lucide-react';
+import { FileText, Ticket, BarChart3, Users, ExternalLink, Mail, ShieldCheck } from 'lucide-react';
 
 const sections = [
   {
@@ -25,6 +25,13 @@ const sections = [
     icon: Mail,
     title: 'Emails envoyés',
     description: 'Historique des envois (succès/échec), timestamps et renvoi manuel.',
+    cta: 'Ouvrir',
+  },
+  {
+    to: '/admin/users',
+    icon: ShieldCheck,
+    title: 'Rôles utilisateurs',
+    description: 'Attribuer ou retirer l’accès administrateur aux utilisateurs.',
     cta: 'Ouvrir',
   },
 ];
