@@ -1,9 +1,10 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from "vite-plugin-pwa";
 import { prerenderPlugin } from "./vite-plugin-prerender";
+
 
 const STATIC_PRERENDER_ROUTES = [
   "/home",
@@ -19,29 +20,46 @@ const STATIC_PRERENDER_ROUTES = [
   "/theme/vivre_societe",
 ];
 
-async function fetchBlogSlugs(): Promise<string[]> {
-  const url = process.env.VITE_SUPABASE_URL;
-  const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !key) return [];
-  try {
-    const res = await fetch(
-      `${url}/rest/v1/blog_posts?select=slug&published=eq.true`,
-      { headers: { apikey: key, Authorization: `Bearer ${key}` } },
-    );
-    if (!res.ok) return [];
-    const rows = (await res.json()) as { slug: string }[];
-    return rows
-      .map((r) => r.slug?.replace(/^\/+|\/+$/g, ""))
-      .filter(Boolean)
-      .map((s) => `/blog/${s}`);
-  } catch {
-    return [];
-  }
+function makeFetchBlogSlugs(url: string | undefined, key: string | undefined) {
+  return async function fetchBlogSlugs(): Promise<string[]> {
+    if (!url || !key) {
+      console.warn("[prerender] fetchBlogSlugs: missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY");
+      return [];
+    }
+    try {
+      const res = await fetch(
+        `${url}/rest/v1/blog_posts?select=slug&published=eq.true`,
+        { headers: { apikey: key, Authorization: `Bearer ${key}` } },
+      );
+      if (!res.ok) {
+        console.warn(`[prerender] fetchBlogSlugs: HTTP ${res.status} ${await res.text()}`);
+        return [];
+      }
+      const rows = (await res.json()) as { slug: string }[];
+      const slugs = rows
+        .map((r) => r.slug?.replace(/^\/+|\/+$/g, ""))
+        .filter(Boolean)
+        .map((s) => `/blog/${s}`);
+      console.log(`[prerender] fetchBlogSlugs: found ${slugs.length} slug(s)`);
+      return slugs;
+    } catch (e) {
+      console.warn("[prerender] fetchBlogSlugs threw:", (e as Error).message);
+      return [];
+    }
+  };
 }
 
 
+
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  const fetchBlogSlugs = makeFetchBlogSlugs(
+    env.VITE_SUPABASE_URL || process.env.VITE_SUPABASE_URL,
+    env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+  );
+  return ({
+
   server: {
     host: "::",
     port: 8080,
@@ -130,4 +148,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-}));
+  });
+});
+
