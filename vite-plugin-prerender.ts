@@ -113,6 +113,7 @@ export function prerenderPlugin(opts: PrerenderOptions): Plugin {
 
       let success = 0;
       let failed = 0;
+      const rendered: string[] = [];
       try {
         for (const route of routes) {
           const page = await browser.newPage();
@@ -130,6 +131,7 @@ export function prerenderPlugin(opts: PrerenderOptions): Plugin {
             await fs.mkdir(outDir, { recursive: true });
             await fs.writeFile(path.join(outDir, "index.html"), html, "utf8");
             success++;
+            rendered.push(route);
             console.log(`[prerender] ✓ ${route}`);
           } catch (e) {
             failed++;
@@ -143,6 +145,63 @@ export function prerenderPlugin(opts: PrerenderOptions): Plugin {
         server.close();
       }
       console.log(`[prerender] done: ${success} ok, ${failed} failed`);
+
+      if (opts.sitemap && rendered.length > 0) {
+        try {
+          const xml = buildSitemap(rendered, opts.sitemap);
+          await fs.writeFile(path.join(distDir, "sitemap.xml"), xml, "utf8");
+          console.log(`[prerender] sitemap.xml written (${rendered.length} url(s))`);
+        } catch (e) {
+          console.warn("[prerender] sitemap write failed:", (e as Error).message);
+        }
+      }
     },
   };
+}
+
+function buildSitemap(routes: string[], opts: SitemapOptions): string {
+  const base = opts.baseUrl.replace(/\/+$/, "");
+  const languages = opts.languages ?? [];
+  const defaultLang = languages[0];
+  const mono = opts.monolingualPrefixes ?? [];
+  const overrides = (opts.priorityByPrefix ?? []).slice().sort((a, b) => b.prefix.length - a.prefix.length);
+  const defaultPriority = opts.defaultPriority ?? "0.5";
+  const defaultChangefreq = opts.defaultChangefreq ?? "monthly";
+  const today = new Date().toISOString().slice(0, 10);
+
+  const sorted = routes.slice().sort();
+  const urls = sorted.map((route) => {
+    const loc = `${base}${route}`;
+    const meta = overrides.find((o) => route === o.prefix || route.startsWith(o.prefix + "/") || route.startsWith(o.prefix));
+    const priority = meta?.priority ?? defaultPriority;
+    const changefreq = meta?.changefreq ?? defaultChangefreq;
+    const isMonolingual = mono.some((p) => route === p || route.startsWith(p));
+    const alternates = !isMonolingual && languages.length > 1 && defaultLang
+      ? [
+          ...languages.map((lang) => {
+            const href = lang === defaultLang ? loc : `${loc}?lang=${lang}`;
+            return `    <xhtml:link rel="alternate" hreflang="${lang}" href="${href}"/>`;
+          }),
+          `    <xhtml:link rel="alternate" hreflang="x-default" href="${loc}"/>`,
+        ].join("\n")
+      : "";
+    return [
+      `  <url>`,
+      `    <loc>${loc}</loc>`,
+      alternates,
+      `    <lastmod>${today}</lastmod>`,
+      `    <changefreq>${changefreq}</changefreq>`,
+      `    <priority>${priority}</priority>`,
+      `  </url>`,
+    ].filter(Boolean).join("\n");
+  });
+
+  return [
+    `<?xml version="1.0" encoding="UTF-8"?>`,
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"`,
+    `        xmlns:xhtml="http://www.w3.org/1999/xhtml">`,
+    ...urls,
+    `</urlset>`,
+    ``,
+  ].join("\n");
 }
