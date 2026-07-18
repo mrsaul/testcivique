@@ -1,13 +1,26 @@
 # Le Test Civique
 
-> Préparation en ligne à l'examen civique français requis pour la naturalisation : quiz interactifs, 5 thèmes officiels, plus de 300 questions, suivi de progression et examens blancs chronométrés.
+> Préparation en ligne à l'examen civique français requis pour la naturalisation : quiz interactifs sur les 5 thèmes officiels, plus de 300 questions, suivi de progression et examens blancs chronométrés.
 
-Le Test Civique est une application web et PWA (FR, EN, ES, AR pour l'interface ; contenu des quiz exclusivement en français) qui aide les candidats à la nationalité française à se préparer à l'examen civique. Modèle freemium : 5 questions gratuites, puis accès illimité à vie pour 5 €.
+Le Test Civique est une application web et PWA (interface disponible en FR, EN, ES, AR ; contenu des quiz exclusivement en français) qui aide les candidats à la nationalité française à se préparer à l'examen civique. Modèle freemium : 5 questions gratuites, puis accès illimité à vie pour 5 €.
+
+Format officiel de l'examen (depuis le 1er janvier 2026) : 40 questions à choix multiples passées sur ordinateur en 45 minutes, réparties en 28 questions de connaissances (histoire, géographie, institutions, valeurs de la République) et 12 questions de mise en situation (scénarios concrets de la vie en France : démarches, école, travail, santé, laïcité). Score minimum requis pour réussir : 32 bonnes réponses sur 40, soit 80 %.
 
 ## Pages
 
-- [Accueil](/): Présentation de l'application, fonctionnalités, témoignages, tarifs et FAQ sur l'examen civique français.
+- [Accueil](/home): Présentation de l'application, fonctionnalités, 5 thèmes officiels, tarifs et FAQ détaillée sur le format 2026 de l'examen civique français.
+- [Guide des thèmes](/themes-guide): Vue d'ensemble des 5 thèmes officiels de l'examen civique et liens vers chaque page thématique.
+- [Thème — Principes et valeurs de la République](/theme/principes_valeurs): Liberté, égalité, fraternité, laïcité, devise, symboles et valeurs fondamentales de la République française.
+- [Thème — Système institutionnel et politique](/theme/systeme_institutionnel): Président, gouvernement, Parlement, séparation des pouvoirs et fonctionnement des institutions françaises.
+- [Thème — Droits et devoirs](/theme/droits_devoirs): Droits civiques, devoirs du citoyen, libertés fondamentales et responsabilités de la vie en société.
+- [Thème — Histoire, géographie et culture](/theme/histoire_geographie): Grandes dates de l'histoire de France, géographie du territoire, patrimoine culturel et artistique.
+- [Thème — Vivre dans la société française](/theme/vivre_societe): Vie quotidienne, école, santé, travail, égalité femmes-hommes et vivre-ensemble en France.
 - [Blog](/blog): Articles de fond sur l'examen civique, les institutions, la laïcité, l'histoire de France et conseils de préparation.
+- [Réussir le Test Civique — Guide complet pour la naturalisation](/blog/reussir-le-test-civique-en-france-le-guide-complet-pour-votre-naturalisation): Guide pas à pas pour préparer l'entretien d'assimilation et l'examen civique dans le cadre d'une demande de naturalisation française.
+- [Pourquoi la laïcité est-elle si importante en France ?](/blog/laicite-france-test-civique): Explication simple de la laïcité française avec définition, exemples concrets et conseils pour les questions de l'examen.
+- [Le système institutionnel français : qui fait les lois ?](/blog/systeme-institutionnel-francais-qui-fait-les-lois): Rôles du Président, du Gouvernement et du Parlement, et parcours d'adoption d'une loi en France.
+- [Visiter le Musée de l'Armée aux Invalides pour préparer le test civique](/blog/musee-armee-test-civique): Comment une visite du Musée de l'Armée aide à ancrer les repères historiques attendus à l'examen civique.
+- [Conseils essentiels la veille et le jour de l'examen civique](/blog/conseils-test-civique-veille-jour-examen): Préparation la veille, gestion du stress et astuces pratiques pour le jour J de l'examen.
 - [Installer l'application](/install): Guide pour installer la PWA Test Civique sur iPhone, iPad et Android.
 - [Mentions légales](/mentions-legales): Mentions légales de l'éditeur du site.
 - [Politique de confidentialité](/politique-confidentialite): Politique de confidentialité et conformité RGPD.
