@@ -52,15 +52,48 @@ serve(async (req) => {
     { auth: { persistSession: false } },
   );
 
+  // Best-effort audit log — never blocks the webhook.
+  const recordEvent = async (fields: Record<string, unknown>) => {
+    try {
+      await supabase.from("payment_events").upsert(
+        {
+          stripe_event_id: event.id,
+          event_type: event.type,
+          payload: event as unknown as Record<string, unknown>,
+          ...fields,
+        },
+        { onConflict: "stripe_event_id" },
+      );
+    } catch (e) {
+      log("audit insert failed", { message: (e as Error).message });
+    }
+  };
+
+
   try {
     if (
       event.type === "checkout.session.completed" ||
       event.type === "checkout.session.async_payment_succeeded"
     ) {
       const session = event.data.object as Stripe.Checkout.Session;
+      const sessionEmail =
+        session.customer_details?.email || session.customer_email || null;
+      const piId =
+        typeof session.payment_intent === "string"
+          ? session.payment_intent
+          : session.payment_intent?.id ?? null;
 
       if (session.payment_status !== "paid") {
         log("session not paid, skipping", { id: session.id, status: session.payment_status });
+        await recordEvent({
+          status: "skipped_not_paid",
+          user_email: sessionEmail,
+          stripe_session_id: session.id,
+          stripe_payment_intent_id: piId,
+          amount: session.amount_total ?? null,
+          currency: session.currency ?? null,
+          error_message: `payment_status=${session.payment_status}`,
+        });
         return new Response(JSON.stringify({ received: true }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
           status: 200,
@@ -70,23 +103,26 @@ serve(async (req) => {
       // Prefer metadata.user_id (set in create-payment). Fall back to email lookup.
       let userId = session.metadata?.user_id ?? null;
 
-      if (!userId) {
-        const email =
-          session.customer_details?.email ||
-          session.customer_email ||
-          null;
-        if (email) {
-          const { data: profile } = await supabase
-            .from("profiles")
-            .select("user_id")
-            .eq("email", email)
-            .maybeSingle();
-          userId = profile?.user_id ?? null;
-        }
+      if (!userId && sessionEmail) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("user_id")
+          .eq("email", sessionEmail)
+          .maybeSingle();
+        userId = profile?.user_id ?? null;
       }
 
       if (!userId) {
         log("no user match, cannot activate premium", { session_id: session.id });
+        await recordEvent({
+          status: "unmatched_user",
+          user_email: sessionEmail,
+          stripe_session_id: session.id,
+          stripe_payment_intent_id: piId,
+          amount: session.amount_total ?? null,
+          currency: session.currency ?? null,
+          error_message: "No user_id in metadata and no profile matched by email",
+        });
         // Return 200 so Stripe doesn't retry forever — nothing we can do.
         return new Response(JSON.stringify({ received: true, matched: false }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -121,6 +157,16 @@ serve(async (req) => {
 
       log("premium activated", { userId, session_id: session.id });
 
+      await recordEvent({
+        status: "premium_activated",
+        user_id: userId,
+        user_email: sessionEmail,
+        stripe_session_id: session.id,
+        stripe_payment_intent_id: piId,
+        amount: session.amount_total ?? null,
+        currency: session.currency ?? null,
+      });
+
       // Send welcome premium email (idempotent via session id).
       try {
         const { data: profile } = await supabase
@@ -129,11 +175,7 @@ serve(async (req) => {
           .eq("user_id", userId)
           .maybeSingle();
 
-        const recipient =
-          profile?.email ||
-          session.customer_details?.email ||
-          session.customer_email ||
-          null;
+        const recipient = profile?.email || sessionEmail || null;
 
         if (recipient) {
           const amount = session.amount_total ?? 500;
@@ -146,10 +188,6 @@ serve(async (req) => {
           // Try to grab receipt_url from the underlying charge.
           let receiptUrl: string | null = null;
           try {
-            const piId =
-              typeof session.payment_intent === "string"
-                ? session.payment_intent
-                : session.payment_intent?.id ?? null;
             if (piId) {
               const pi = await stripe.paymentIntents.retrieve(piId, {
                 expand: ["latest_charge"],
@@ -192,8 +230,35 @@ serve(async (req) => {
       } catch (e) {
         log("welcome email error", { message: (e as Error).message });
       }
+    } else if (
+      event.type === "checkout.session.async_payment_failed" ||
+      event.type === "checkout.session.expired" ||
+      event.type === "payment_intent.payment_failed"
+    ) {
+      const obj = event.data.object as Stripe.Checkout.Session | Stripe.PaymentIntent;
+      const isSession = "payment_status" in obj;
+      const session = isSession ? (obj as Stripe.Checkout.Session) : null;
+      const pi = !isSession ? (obj as Stripe.PaymentIntent) : null;
+      const errMsg =
+        pi?.last_payment_error?.message ||
+        (event.type === "checkout.session.expired" ? "Checkout session expired" : "Payment failed");
+      await recordEvent({
+        status: "failed",
+        user_id: (session?.metadata?.user_id || pi?.metadata?.user_id) ?? null,
+        user_email:
+          session?.customer_details?.email || session?.customer_email || pi?.receipt_email || null,
+        stripe_session_id: session?.id ?? null,
+        stripe_payment_intent_id:
+          pi?.id ||
+          (typeof session?.payment_intent === "string" ? session?.payment_intent : null),
+        amount: session?.amount_total ?? pi?.amount ?? null,
+        currency: session?.currency ?? pi?.currency ?? null,
+        error_message: errMsg,
+      });
+      log("payment failure recorded", { type: event.type });
     } else {
       log("ignored event type", { type: event.type });
+      await recordEvent({ status: "ignored" });
     }
 
     return new Response(JSON.stringify({ received: true }), {
@@ -202,6 +267,7 @@ serve(async (req) => {
     });
   } catch (err) {
     log("handler error", { message: (err as Error).message });
+    await recordEvent({ status: "handler_error", error_message: (err as Error).message });
     // 500 → Stripe will retry
     return new Response(JSON.stringify({ error: "Handler failure" }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -209,3 +275,4 @@ serve(async (req) => {
     });
   }
 });
+

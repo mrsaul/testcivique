@@ -29,6 +29,7 @@ const AdminPartnerCodesPage = lazy(() => import('@/pages/AdminPartnerCodesPage')
 const AdminSettingsPage = lazy(() => import('@/pages/AdminSettingsPage'));
 const AdminEmailsPage = lazy(() => import('@/pages/AdminEmailsPage'));
 const AdminUsersPage = lazy(() => import('@/pages/AdminUsersPage'));
+const AdminPaymentsPage = lazy(() => import('@/pages/AdminPaymentsPage'));
 const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
 const ThemesIndexPage = lazy(() => import('@/pages/ThemesIndexPage'));
 const UnsubscribePage = lazy(() => import('@/pages/UnsubscribePage'));
@@ -179,6 +180,15 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/admin/payments"
+        element={
+          <ProtectedRoute>
+            <AdminPaymentsPage />
+          </ProtectedRoute>
+        }
+      />
+
 
       <Route path="/themes-guide" element={<ThemesIndexPage />} />
       <Route path="/theme/:themeId" element={<ThemeLandingPage />} />

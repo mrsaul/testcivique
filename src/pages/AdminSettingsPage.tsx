@@ -3,7 +3,7 @@ import { useAdmin } from '@/hooks/useAdmin';
 import { Layout } from '@/components/layout/Layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileText, Ticket, BarChart3, Users, ExternalLink, Mail, ShieldCheck } from 'lucide-react';
+import { FileText, Ticket, BarChart3, Users, ExternalLink, Mail, ShieldCheck, CreditCard } from 'lucide-react';
 
 const sections = [
   {
@@ -34,6 +34,14 @@ const sections = [
     description: 'Attribuer ou retirer l’accès administrateur aux utilisateurs.',
     cta: 'Ouvrir',
   },
+  {
+    to: '/admin/payments',
+    icon: CreditCard,
+    title: 'Paiements Stripe',
+    description: 'Consulter les événements Stripe et diagnostiquer les échecs de paiement.',
+    cta: 'Ouvrir',
+  },
+
 ];
 
 const externalTools = [
