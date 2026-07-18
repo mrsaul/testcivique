@@ -39,6 +39,15 @@ serve(async (req) => {
 
     const session = await stripe.checkout.sessions.retrieve(session_id);
 
+    // Ensure the session belongs to the authenticated user (prevent
+    // premium activation by replaying another user's session_id).
+    if (session.metadata?.user_id !== user.id) {
+      return new Response(JSON.stringify({ error: "Session does not belong to user" }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 403,
+      });
+    }
+
     if (session.payment_status === "paid") {
       // Update purchase record
       await supabaseClient
