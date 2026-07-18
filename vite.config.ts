@@ -52,7 +52,14 @@ function makeFetchBlogSlugs(url: string | undefined, key: string | undefined) {
 
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  const fetchBlogSlugs = makeFetchBlogSlugs(
+    env.VITE_SUPABASE_URL || process.env.VITE_SUPABASE_URL,
+    env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+  );
+  return ({
+
   server: {
     host: "::",
     port: 8080,
