@@ -52,6 +52,24 @@ serve(async (req) => {
     { auth: { persistSession: false } },
   );
 
+  // Best-effort audit log — never blocks the webhook.
+  const recordEvent = async (fields: Record<string, unknown>) => {
+    try {
+      await supabase.from("payment_events").upsert(
+        {
+          stripe_event_id: event.id,
+          event_type: event.type,
+          payload: event as unknown as Record<string, unknown>,
+          ...fields,
+        },
+        { onConflict: "stripe_event_id" },
+      );
+    } catch (e) {
+      log("audit insert failed", { message: (e as Error).message });
+    }
+  };
+
+
   try {
     if (
       event.type === "checkout.session.completed" ||
