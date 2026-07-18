@@ -58,10 +58,14 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 }
 
 function LanguageGate({ children }: { children: React.ReactNode }) {
-  const hasLang = localStorage.getItem('i18nextLng');
-  if (!hasLang) {
-    return <Navigate to="/" replace />;
-  }
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    const hasLang = localStorage.getItem('i18nextLng');
+    if (!hasLang) {
+      localStorage.setItem('i18nextLng', 'fr');
+      if (i18n.language !== 'fr') i18n.changeLanguage('fr');
+    }
+  }, [i18n]);
   return <>{children}</>;
 }
 
