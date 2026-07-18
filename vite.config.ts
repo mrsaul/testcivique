@@ -140,6 +140,22 @@ export default defineConfig(({ mode }) => {
     prerenderPlugin({
       staticRoutes: STATIC_PRERENDER_ROUTES,
       dynamicRoutes: fetchBlogSlugs,
+      sitemap: {
+        baseUrl: "https://letestcivique.org",
+        languages: ["fr", "en", "es", "ar"],
+        monolingualPrefixes: ["/mentions-legales", "/politique-confidentialite"],
+        defaultPriority: "0.5",
+        defaultChangefreq: "monthly",
+        priorityByPrefix: [
+          { prefix: "/home", priority: "1.0", changefreq: "weekly" },
+          { prefix: "/themes-guide", priority: "0.8", changefreq: "monthly" },
+          { prefix: "/theme", priority: "0.9", changefreq: "monthly" },
+          { prefix: "/blog", priority: "0.8", changefreq: "weekly" },
+          { prefix: "/install", priority: "0.4", changefreq: "monthly" },
+          { prefix: "/mentions-legales", priority: "0.2", changefreq: "yearly" },
+          { prefix: "/politique-confidentialite", priority: "0.2", changefreq: "yearly" },
+        ],
+      },
     }),
   ].filter(Boolean),
 
