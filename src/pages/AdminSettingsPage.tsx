@@ -34,6 +34,14 @@ const sections = [
     description: 'Attribuer ou retirer l’accès administrateur aux utilisateurs.',
     cta: 'Ouvrir',
   },
+  {
+    to: '/admin/payments',
+    icon: CreditCard,
+    title: 'Paiements Stripe',
+    description: 'Consulter les événements Stripe et diagnostiquer les échecs de paiement.',
+    cta: 'Ouvrir',
+  },
+
 ];
 
 const externalTools = [
