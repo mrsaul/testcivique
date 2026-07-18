@@ -1,9 +1,10 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from "vite-plugin-pwa";
 import { prerenderPlugin } from "./vite-plugin-prerender";
+
 
 const STATIC_PRERENDER_ROUTES = [
   "/home",
