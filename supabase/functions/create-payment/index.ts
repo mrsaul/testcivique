@@ -49,7 +49,14 @@ serve(async (req) => {
       customerId = customers.data[0].id;
     }
 
-    const origin = req.headers.get("origin") || "https://testcivique.lovable.app";
+    // Use a fixed allow-list of origins to prevent open-redirect via Origin header.
+    const ALLOWED_ORIGINS = new Set([
+      "https://letestcivique.org",
+      "https://www.letestcivique.org",
+      "https://testcivique.lovable.app",
+    ]);
+    const rawOrigin = req.headers.get("origin") || "";
+    const origin = ALLOWED_ORIGINS.has(rawOrigin) ? rawOrigin : "https://letestcivique.org";
 
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
