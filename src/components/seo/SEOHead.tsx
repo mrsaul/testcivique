@@ -11,7 +11,10 @@ interface SEOHeadProps {
   faq?: boolean;
 }
 
-const BASE_URL = 'https://www.letestcivique.org';
+// Must match the canonical host verified in Google Search Console (apex, no www).
+// www.letestcivique.org 302-redirects to the apex, so canonicals pointing to www
+// caused Google to report "Page with redirect" and refuse to index the URL.
+const BASE_URL = 'https://letestcivique.org';
 const DEFAULT_TITLE = 'Test Civique – Préparation Examen Civique Français';
 const DEFAULT_DESCRIPTION =
   'Préparez votre examen civique français avec des quiz interactifs. 5 thèmes officiels, 150+ questions, suivi de progression.';
