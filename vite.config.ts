@@ -119,7 +119,12 @@ export default defineConfig(({ mode }) => ({
         ],
       },
     }),
+    prerenderPlugin({
+      staticRoutes: STATIC_PRERENDER_ROUTES,
+      dynamicRoutes: fetchBlogSlugs,
+    }),
   ].filter(Boolean),
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
