@@ -1,0 +1,1 @@
+ALTER VIEW public.quiz_questions SET (security_invoker = true);
