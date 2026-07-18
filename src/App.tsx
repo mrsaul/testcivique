@@ -5,7 +5,8 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
 import { SEOHead } from '@/components/seo/SEOHead';
 import { PrefetchManager } from '@/components/PrefetchManager';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Code-split route bundles to improve initial load (Core Web Vitals: LCP/TBT)
 const LanguageSelectPage = lazy(() => import('@/pages/LanguageSelectPage'));
