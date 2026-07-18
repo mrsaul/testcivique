@@ -101,7 +101,7 @@ export function prerenderPlugin(opts: PrerenderOptions): Plugin {
           const page = await browser.newPage();
           try {
             // Silence noisy console output from the app during prerender.
-            page.on("pageerror", (err) => console.warn(`[prerender][${route}] pageerror:`, err.message));
+            page.on("pageerror", (err: Error) => console.warn(`[prerender][${route}] pageerror:`, err.message));
             const url = base + route;
             await page.goto(url, { waitUntil: "networkidle0", timeout });
             await page.waitForSelector(waitForSelector, { timeout: 5000 }).catch(() => {});
