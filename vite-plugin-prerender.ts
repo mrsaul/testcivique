@@ -3,6 +3,21 @@ import { promises as fs } from "fs";
 import path from "path";
 import http from "http";
 
+interface SitemapOptions {
+  /** Absolute base URL, e.g. "https://letestcivique.org" (no trailing slash). */
+  baseUrl: string;
+  /** Languages to emit as hreflang alternates via ?lang=xx. First entry is the default. */
+  languages?: string[];
+  /** Route prefixes that should NOT get hreflang alternates (e.g. legal pages). */
+  monolingualPrefixes?: string[];
+  /** Per-prefix metadata overrides. Longest prefix wins. */
+  priorityByPrefix?: Array<{ prefix: string; priority?: string; changefreq?: string }>;
+  /** Default priority when nothing matches. */
+  defaultPriority?: string;
+  /** Default changefreq when nothing matches. */
+  defaultChangefreq?: string;
+}
+
 interface PrerenderOptions {
   /** Static routes (paths beginning with "/") to always prerender. */
   staticRoutes: string[];
@@ -12,6 +27,8 @@ interface PrerenderOptions {
   timeout?: number;
   /** Selector we wait for before capturing HTML. */
   waitForSelector?: string;
+  /** If provided, writes dist/sitemap.xml listing every successfully-prerendered route. */
+  sitemap?: SitemapOptions;
 }
 
 /**
