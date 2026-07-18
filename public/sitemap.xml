@@ -2,49 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Home -->
-  <url>
-    <loc>https://letestcivique.org/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/?lang=ar"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/"/>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- Auth -->
-  <url>
-    <loc>https://letestcivique.org/login</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/login"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/login?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/login?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/login?lang=ar"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/login"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://letestcivique.org/register</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/register"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://letestcivique.org/register?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://letestcivique.org/register?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/register?lang=ar"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/register"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://letestcivique.org/forgot-password</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://letestcivique.org/reset-password</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
+  <!-- Home (real landing page; "/" is a noindex language splash and is excluded) -->
   <url>
     <loc>https://letestcivique.org/home</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://letestcivique.org/home"/>
@@ -53,7 +11,7 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://letestcivique.org/home?lang=ar"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://letestcivique.org/home"/>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>1.0</priority>
   </url>
 
   <!-- Install / PWA -->
