@@ -220,6 +220,54 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_events: {
+        Row: {
+          amount: number | null
+          created_at: string
+          currency: string | null
+          error_message: string | null
+          event_type: string
+          id: string
+          payload: Json | null
+          status: string
+          stripe_event_id: string | null
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          user_email: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          error_message?: string | null
+          event_type: string
+          id?: string
+          payload?: Json | null
+          status?: string
+          stripe_event_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          error_message?: string | null
+          event_type?: string
+          id?: string
+          payload?: Json | null
+          status?: string
+          stripe_event_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       prefetch_events: {
         Row: {
           created_at: string
