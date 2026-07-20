@@ -32,6 +32,7 @@ const AdminUsersPage = lazy(() => import('@/pages/AdminUsersPage'));
 const AdminPaymentsPage = lazy(() => import('@/pages/AdminPaymentsPage'));
 const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
 const ThemesIndexPage = lazy(() => import('@/pages/ThemesIndexPage'));
+const GuideNaturalisationPage = lazy(() => import('@/pages/GuideNaturalisationPage'));
 const UnsubscribePage = lazy(() => import('@/pages/UnsubscribePage'));
 
 const queryClient = new QueryClient();
@@ -192,6 +193,7 @@ function AppRoutes() {
 
       <Route path="/themes-guide" element={<ThemesIndexPage />} />
       <Route path="/theme/:themeId" element={<ThemeLandingPage />} />
+      <Route path="/guide-naturalisation" element={<GuideNaturalisationPage />} />
       <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
       <Route path="/unsubscribe" element={<UnsubscribePage />} />
