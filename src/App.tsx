@@ -32,6 +32,7 @@ const AdminUsersPage = lazy(() => import('@/pages/AdminUsersPage'));
 const AdminPaymentsPage = lazy(() => import('@/pages/AdminPaymentsPage'));
 const ThemeLandingPage = lazy(() => import('@/pages/ThemeLandingPage'));
 const ThemesIndexPage = lazy(() => import('@/pages/ThemesIndexPage'));
+const GuideNaturalisationPage = lazy(() => import('@/pages/GuideNaturalisationPage'));
 const UnsubscribePage = lazy(() => import('@/pages/UnsubscribePage'));
 
 const queryClient = new QueryClient();
