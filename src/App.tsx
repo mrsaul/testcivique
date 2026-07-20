@@ -193,6 +193,7 @@ function AppRoutes() {
 
       <Route path="/themes-guide" element={<ThemesIndexPage />} />
       <Route path="/theme/:themeId" element={<ThemeLandingPage />} />
+      <Route path="/guide-naturalisation" element={<GuideNaturalisationPage />} />
       <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialitePage />} />
       <Route path="/unsubscribe" element={<UnsubscribePage />} />
