@@ -149,6 +149,7 @@ export default defineConfig(({ mode }) => {
         defaultChangefreq: "monthly",
         priorityByPrefix: [
           { prefix: "/home", priority: "1.0", changefreq: "weekly" },
+          { prefix: "/guide-naturalisation", priority: "0.9", changefreq: "monthly" },
           { prefix: "/themes-guide", priority: "0.8", changefreq: "monthly" },
           { prefix: "/theme", priority: "0.9", changefreq: "monthly" },
           { prefix: "/blog", priority: "0.8", changefreq: "weekly" },
