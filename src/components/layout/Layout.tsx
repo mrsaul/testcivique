@@ -43,6 +43,15 @@ export function Layout({ children }: LayoutProps) {
                   </Link>
                 </li>
                 <li>
+                  <Link
+                    to="/guide-naturalisation"
+                    className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    Guide naturalisation française
+                  </Link>
+                </li>
+                <li>
                   <a
                     href="https://formation-civique.interieur.gouv.fr/"
                     target="_blank"
