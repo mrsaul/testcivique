@@ -31,7 +31,7 @@ export default function GuideNaturalisationPage() {
           </p>
         </header>
 
-        <TableOfContents items={toc} />
+        <TableOfContents />
 
         <section id="conditions" aria-labelledby="conditions-title" className="mt-12 space-y-4">
           <h2 id="conditions-title" className="text-2xl md:text-3xl font-display font-bold flex items-center gap-3">
