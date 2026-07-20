@@ -130,10 +130,16 @@ export default function LandingPage() {
                 </li>
               ))}
             </ol>
-            <div className="text-center mt-8">
+            <div className="text-center mt-8 flex flex-wrap gap-3 justify-center">
               <Button variant="outline" asChild>
                 <Link to="/themes-guide">
                   Voir tous les thèmes en détail
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/guide-naturalisation">
+                  Guide de la naturalisation française
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
