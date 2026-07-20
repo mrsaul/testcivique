@@ -7,14 +7,6 @@ import { TableOfContents } from '@/components/seo/TableOfContents';
 import { ArrowRight, FileCheck, ScrollText, Clock, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 export default function GuideNaturalisationPage() {
-  const toc = [
-    { id: 'conditions', label: "Conditions d'éligibilité" },
-    { id: 'dossier', label: 'Le dossier à constituer' },
-    { id: 'procedure', label: 'Étapes de la procédure' },
-    { id: 'examen-civique', label: "L'examen civique et le niveau B2" },
-    { id: 'delais', label: 'Délais et décision' },
-    { id: 'faq', label: 'Questions fréquentes' },
-  ];
 
   return (
     <Layout>
