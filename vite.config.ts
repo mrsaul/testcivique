@@ -18,6 +18,7 @@ const STATIC_PRERENDER_ROUTES = [
   "/theme/droits_devoirs",
   "/theme/histoire_geographie",
   "/theme/vivre_societe",
+  "/guide-naturalisation",
 ];
 
 function makeFetchBlogSlugs(url: string | undefined, key: string | undefined) {
