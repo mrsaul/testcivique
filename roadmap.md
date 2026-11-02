@@ -4,3 +4,4 @@
 - [ ] Restore domain routing — blocked on the owner completing the domain setup card at the domain provider.
 - [x] Diagnose screenshot: 293 questions exist, but the quiz view applies a policy that blocks their retrieval.
 - [ ] Recover quiz question access securely and verify a signed-in quiz session.
+- [ ] Fix repeated ten-question practice sets and verify question rotation.
