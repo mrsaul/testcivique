@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { ThemeId } from '@/lib/constants';
+import { selectQuestions } from '@/lib/select-questions';
 
 // Question without correct_answer (from quiz_questions view)
 export interface QuizQuestion {
@@ -62,16 +63,10 @@ export function useQuestions(theme?: ThemeId, limit?: number) {
         query = query.eq('theme', theme);
       }
       
-      if (limit) {
-        query = query.limit(limit);
-      }
-
       const { data, error } = await query;
       if (error) throw error;
       
-      // Shuffle questions
-      const shuffled = [...(data as QuizQuestion[])].sort(() => Math.random() - 0.5);
-      return limit ? shuffled.slice(0, limit) : shuffled;
+      return selectQuestions((data ?? []) as QuizQuestion[], limit);
     },
   });
 }

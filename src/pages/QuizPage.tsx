@@ -12,7 +12,7 @@ import { useQuizState, Question, QuizQuestion as QuizQuestionType } from '@/hook
 import { useAuth } from '@/hooks/useAuth';
 import { useMasteredQuestions, useExcludeMastered } from '@/hooks/useMasteredQuestions';
 import { THEMES, ThemeId, SESSION_TYPES, EXAM_CONFIG } from '@/lib/constants';
-import { SAMPLE_QUESTIONS } from '@/lib/questions-data';
+import { selectQuestions } from '@/lib/select-questions';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -98,27 +98,9 @@ export default function QuizPage() {
 
       let questionsToUse: Question[];
 
-      if (error || !dbQuestions || dbQuestions.length === 0) {
-        // Use sample questions if database is empty
-        let filtered = SAMPLE_QUESTIONS;
-        if (theme) {
-          filtered = filtered.filter(q => q.theme === theme);
-        }
-        if (difficultyFilter.length < 3) {
-          filtered = filtered.filter(q => difficultyFilter.includes(q.difficulty as DifficultyLevel));
-        }
-        
-        // Shuffle and limit
-        const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-        questionsToUse = shuffled.slice(0, config.questionCount).map((q, i) => ({
-          id: `sample-${i}`,
-          theme: q.theme as ThemeId,
-          question: q.question,
-          options: q.options,
-          correct_answer: q.correct_answer,
-          explanation: q.explanation,
-          difficulty: q.difficulty as 'facile' | 'moyen' | 'difficile',
-        }));
+      if (error) throw error;
+      if (!dbQuestions || dbQuestions.length === 0) {
+        questionsToUse = [];
       } else {
         // Filter out mastered questions if the option is enabled
         let filteredQuestions = dbQuestions;
@@ -137,8 +119,7 @@ export default function QuizPage() {
         }
 
         // Use database questions (cast to Question for compatibility)
-        const shuffled = [...filteredQuestions].sort(() => Math.random() - 0.5);
-        questionsToUse = shuffled.slice(0, config.questionCount).map(q => ({
+        questionsToUse = selectQuestions(filteredQuestions, config.questionCount).map(q => ({
           ...q,
           options: q.options as string[],
           correct_answer: -1, // Placeholder, will be validated server-side
@@ -148,7 +129,7 @@ export default function QuizPage() {
       setQuestions(questionsToUse);
 
       // Create session if authenticated
-      if (user) {
+      if (user && questionsToUse.length > 0) {
         const { data: session, error: sessionError } = await supabase
           .from('quiz_sessions')
           .insert({
