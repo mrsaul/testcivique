@@ -1,4 +1,6 @@
 # Access and quiz recovery
 
-- [ ] Verify public access and the custom-domain issue.
-- [ ] Diagnose the screenshot showing no quiz questions and recover the quiz if possible.
+- [x] Verify public access: publication is public; both custom-domain addresses have incorrect DNS records.
+- [ ] Restore domain routing — blocked on the owner completing the domain setup card at the domain provider.
+- [x] Diagnose screenshot: 293 questions exist, but the quiz view applies a policy that blocks their retrieval.
+- [ ] Recover quiz question access securely and verify a signed-in quiz session.
