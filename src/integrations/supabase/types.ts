@@ -515,13 +515,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_answers_question_id_fkey"
-            columns: ["question_id"]
-            isOneToOne: false
-            referencedRelation: "quiz_questions"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "user_answers_session_id_fkey"
             columns: ["session_id"]
             isOneToOne: false
@@ -611,24 +604,6 @@ export type Database = {
           question: string | null
           theme: Database["public"]["Enums"]["quiz_theme"] | null
         }
-        Insert: {
-          created_at?: string | null
-          difficulty?: Database["public"]["Enums"]["difficulty_level"] | null
-          explanation?: string | null
-          id?: string | null
-          options?: Json | null
-          question?: string | null
-          theme?: Database["public"]["Enums"]["quiz_theme"] | null
-        }
-        Update: {
-          created_at?: string | null
-          difficulty?: Database["public"]["Enums"]["difficulty_level"] | null
-          explanation?: string | null
-          id?: string | null
-          options?: Json | null
-          question?: string | null
-          theme?: Database["public"]["Enums"]["quiz_theme"] | null
-        }
         Relationships: []
       }
     }
@@ -665,6 +640,18 @@ export type Database = {
       enqueue_email: {
         Args: { payload: Json; queue_name: string }
         Returns: number
+      }
+      get_quiz_questions: {
+        Args: never
+        Returns: {
+          created_at: string
+          difficulty: Database["public"]["Enums"]["difficulty_level"]
+          explanation: string
+          id: string
+          options: Json
+          question: string
+          theme: Database["public"]["Enums"]["quiz_theme"]
+        }[]
       }
       has_role: {
         Args: {

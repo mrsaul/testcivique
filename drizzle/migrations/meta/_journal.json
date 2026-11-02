@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793612779675,
+      "tag": "0000_restore_safe_quiz_question_reading",
+      "breakpoints": true
+    }
+  ]
+}
